@@ -235,6 +235,10 @@ Route::group(['prefix' => 'pharmacy', 'middleware' => ['auth', '2fa', 'role:admi
     Route::post('/sell', [PharmacySaleController::class, 'store'])->name('pharmacy.sell.store');
     Route::get('/sell/{sale}/pdf', [PharmacySaleController::class, 'exportPdf'])->name('pharmacy.sell.pdf');
 
+    // Patient search for POS
+    Route::get('/sell/patients/search', [PharmacySaleController::class, 'patientSearch'])
+    ->name('pharmacy.patients.search');
+
     Route::get('/stats', [PharmacyController::class, 'stats'])->name('pharmacy.stats');
 
     // Prescription Dispensing
