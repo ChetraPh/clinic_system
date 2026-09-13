@@ -12,9 +12,9 @@
             <div class="stat-card">
                 <div class="d-flex justify-content-between align-items-start">
                     <span class="stat-icon icon-violet"><i class="fas fa-user-injured"></i></span>
-                    <span class="stat-trend up"><i class="fas fa-check"></i> Active</span>
+                    <span class="stat-trend up"><i class="fas fa-check"></i> សកម្ម</span>
                 </div>
-                <div class="stat-label">អ្នកជំងឺសរុប (Patients)</div>
+                <div class="stat-label">អ្នកជំងឺសរុប</div>
                 <div class="stat-value">{{ number_format($totalPatients ?? 0) }}</div>
                 <a href="{{ route('patients.index') }}" class="btn btn-export text-center">គ្រប់គ្រង</a>
             </div>
@@ -24,9 +24,9 @@
             <div class="stat-card">
                 <div class="d-flex justify-content-between align-items-start">
                     <span class="stat-icon icon-blue"><i class="fas fa-users-cog"></i></span>
-                    <span class="stat-trend up"><i class="fas fa-user-shield"></i> System</span>
+                    <span class="stat-trend up"><i class="fas fa-user-shield"></i> សរុប</span>
                 </div>
-                <div class="stat-label">អ្នកប្រើប្រាស់ (Users)</div>
+                <div class="stat-label">អ្នកប្រើប្រាស់</div>
                 <div class="stat-value">{{ number_format($totalUsers ?? 0) }}</div>
                 <a href="{{ route('user.index') }}" class="btn btn-export text-center">គ្រប់គ្រង</a>
             </div>
@@ -35,22 +35,10 @@
         <div class="col-6 col-md-4 col-xl-2 mb-3">
             <div class="stat-card">
                 <div class="d-flex justify-content-between align-items-start">
-                    <span class="stat-icon icon-rose"><i class="fas fa-id-card"></i></span>
-                    <span class="stat-trend up"><i class="fas fa-user-tie"></i> Staff</span>
-                </div>
-                <div class="stat-label">បុគ្គលិកសរុប (users)</div>
-                <div class="stat-value">{{ number_format($totalusers ?? 0) }}</div>
-                <a href="{{ route('user.index') }}" class="btn btn-export text-center">គ្រប់គ្រង</a>
-            </div>
-        </div>
-
-        <div class="col-6 col-md-4 col-xl-2 mb-3">
-            <div class="stat-card">
-                <div class="d-flex justify-content-between align-items-start">
                     <span class="stat-icon icon-pink"><i class="fas fa-pills"></i></span>
-                    <span class="stat-trend down"><i class="fas fa-boxes"></i> Stock</span>
+                    <span class="stat-trend down"><i class="fas fa-boxes"></i> ស្តុក</span>
                 </div>
-                <div class="stat-label">ថ្នាំសរុប (Medicines)</div>
+                <div class="stat-label">ថ្នាំសរុប</div>
                 <div class="stat-value">{{ number_format($totalMedicines ?? 0) }}</div>
                 <a href="{{ route('pharmacy.index') }}" class="btn btn-export text-center">ឱសថស្ថាន</a>
             </div>
@@ -60,7 +48,7 @@
             <div class="stat-card">
                 <div class="d-flex justify-content-between align-items-start">
                     <span class="stat-icon icon-teal"><i class="fas fa-wallet"></i></span>
-                    <span class="stat-trend up"><i class="fas fa-calendar-day"></i> Today</span>
+                    <span class="stat-trend up"><i class="fas fa-calendar-day"></i> ថ្ងៃនេះ</span>
                 </div>
                 <div class="stat-label">ចំណូលប្រចាំថ្ងៃ</div>
                 <div class="stat-value">${{ number_format($todayRevenue ?? 0, 2) }}</div>
@@ -72,7 +60,7 @@
             <div class="stat-card">
                 <div class="d-flex justify-content-between align-items-start">
                     <span class="stat-icon icon-green"><i class="fas fa-hand-holding-usd"></i></span>
-                    <span class="stat-trend up"><i class="fas fa-chart-line"></i> Total</span>
+                    <span class="stat-trend up"><i class="fas fa-chart-line"></i> សរុប</span>
                 </div>
                 <div class="stat-label">ចំណូលសរុប</div>
                 <div class="stat-value">${{ number_format($totalRevenue ?? 0, 2) }}</div>
@@ -90,8 +78,8 @@
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h3 class="panel-title">ចំណូល និង ចំណាយ</h3>
                     <div class="range-toggle" role="group">
-                        <button type="button" class="range-btn active" data-range="yearly">Yearly</button>
-                        <button type="button" class="range-btn" data-range="monthly">Monthly</button>
+                        <button type="button" class="range-btn active" data-range="yearly">ប្រចាំឆ្នាំ</button>
+                        <button type="button" class="range-btn" data-range="monthly">ប្រចាំខែ</button>
                     </div>
                 </div>
                 <div class="chart-holder">
