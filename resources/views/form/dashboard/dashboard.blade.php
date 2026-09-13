@@ -8,7 +8,7 @@
     {{-- STAT CARDS --}}
     <div class="row stat-row">
 
-        <div class="col-6 col-md-4 col-xl-2 mb-3">
+        <div class="col-6 col-md-4 col-xl mb-3">
             <div class="stat-card">
                 <div class="d-flex justify-content-between align-items-start">
                     <span class="stat-icon icon-violet"><i class="fas fa-user-injured"></i></span>
@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <div class="col-6 col-md-4 col-xl-2 mb-3">
+        <div class="col-6 col-md-4 col-xl mb-3">
             <div class="stat-card">
                 <div class="d-flex justify-content-between align-items-start">
                     <span class="stat-icon icon-blue"><i class="fas fa-users-cog"></i></span>
@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <div class="col-6 col-md-4 col-xl-2 mb-3">
+        <div class="col-6 col-md-4 col-xl mb-3">
             <div class="stat-card">
                 <div class="d-flex justify-content-between align-items-start">
                     <span class="stat-icon icon-pink"><i class="fas fa-pills"></i></span>
@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        <div class="col-6 col-md-4 col-xl-2 mb-3">
+        <div class="col-6 col-md-4 col-xl mb-3">
             <div class="stat-card">
                 <div class="d-flex justify-content-between align-items-start">
                     <span class="stat-icon icon-teal"><i class="fas fa-wallet"></i></span>
@@ -56,7 +56,7 @@
             </div>
         </div>
 
-        <div class="col-6 col-md-4 col-xl-2 mb-3">
+        <div class="col-6 col-md-4 col-xl mb-3">
             <div class="stat-card">
                 <div class="d-flex justify-content-between align-items-start">
                     <span class="stat-icon icon-green"><i class="fas fa-hand-holding-usd"></i></span>
