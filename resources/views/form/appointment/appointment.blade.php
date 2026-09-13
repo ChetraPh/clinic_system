@@ -103,17 +103,7 @@
     }
 
     .toast-custom.error {
-        background: #e53e3e;
-    }
-
-    .modal-header-custom {
-        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-        color: white;
-    }
-
-    .modal-header-edit {
-        background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-        color: white;
+        background-color: #e53e3e;
     }
 </style>
 
@@ -278,7 +268,7 @@
 <div class="modal fade" id="modalEdit" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content border-0 shadow-lg">
-            <div class="modal-header modal-header-edit">
+            <div class="modal-header modal-header-custom">
                 <h5 class="modal-title font-weight-bold"><i class="fas fa-edit mr-2"></i> កែប្រែការណាត់ជួប (Edit
                     Appointment)</h5>
                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
@@ -340,7 +330,7 @@
                 </div>
                 <div class="modal-footer bg-light">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">បោះបង់</button>
-                    <button type="submit" class="btn btn-info"><i class="fas fa-sync-alt mr-1"></i>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-sync-alt mr-1"></i>
                         កែប្រែទិន្នន័យ</button>
                 </div>
             </form>

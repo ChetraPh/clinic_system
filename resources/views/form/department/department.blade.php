@@ -63,7 +63,7 @@
 <div class="modal fade" id="modalCreate" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-mobile-fit">
         <div class="modal-content modal-purple">
-            <div class="modal-header">
+            <div class="modal-header modal-header-custom">
                 <h5 class="modal-title">បន្ថែមដេប៉ាតឺម៉ង់</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -101,7 +101,7 @@
 <div class="modal fade" id="modalEdit" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-mobile-fit">
         <div class="modal-content modal-purple">
-            <div class="modal-header">
+            <div class="modal-header modal-header-custom">
                 <h5 class="modal-title">កែទិន្នន័យដេប៉ាតឺម៉ង់</h5>
                 <button type="button" class="close" data-dismiss="modal">
                     <span>&times;</span>
@@ -143,7 +143,7 @@
 <div class="modal fade" id="modalDelete" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-mobile-fit">
         <div class="modal-content modal-green">
-            <div class="modal-header">
+            <div class="modal-header bg-danger text-white">
                 <h6 class="modal-title"><i class="fas fa-exclamation-triangle mr-1"></i>លុបទិន្នន័យ</h6>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
             </div>

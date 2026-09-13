@@ -69,10 +69,7 @@
         background: #f8fafc;
         border: 1px solid #e2e8f0;
     }
-    .modal-header-custom {
-        background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
-        color: #ffffff;
-    }
+
     .modal-header-pay {
         background: linear-gradient(135deg, #10b981 0%, #047857 100%);
         color: #ffffff;
@@ -389,7 +386,7 @@
 <div class="modal fade" id="modalReceiptInvoice" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content border-0 shadow-lg">
-            <div class="modal-header bg-dark text-white">
+            <div class="modal-header modal-header-custom text-white">
                 <h5 class="modal-title font-weight-bold"><i class="fas fa-print mr-2"></i> ប័ណ្ណទូទាត់ប្រាក់</h5>
                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"><span>&times;</span></button>
             </div>

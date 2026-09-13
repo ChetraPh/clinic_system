@@ -23,28 +23,48 @@
                     <span class="text-muted">{{ $test->unit ?? '—' }}</span>
                 </td>
                 <td class="font-weight-bold text-success">${{ number_format($test->price, 2) }}</td>
-                <td>
-                    <div class="d-flex justify-content-end align-items-center" style="gap: 4px;">
-                        <button
-                            type="button"
-                            class="btn btn-sm btn-outline-warning btn-edit-test"
-                            data-id="{{ $test->test_id }}"
-                            data-name="{{ $test->test_name }}"
-                            data-code="{{ $test->test_code }}"
-                            data-range="{{ $test->normal_range }}"
-                            data-unit="{{ $test->unit }}"
-                            data-price="{{ $test->price }}"
-                            style="border-radius: 8px;"
-                        >
-                            <i class="fas fa-edit"></i>
+                <td class="text-right">
+                    <div class="dropup">
+
+                        {{-- Action Button --}}
+                        <button type="button" class="btn btn-sm btn-light action-menu-btn" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" title="សកម្មភាព">
+                            <i class="fas fa-ellipsis-h"></i>
                         </button>
-                        <form action="{{ route('lab.tests.destroy', $test->test_id) }}" method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('តើអ្នកពិតជាចង់លុបតេស្តនេះមែនទេ?');" style="border-radius: 8px;">
-                                <i class="fas fa-trash-alt"></i>
+
+                        {{-- Dropdown Menu --}}
+                        <div class="dropdown-menu dropdown-menu-right shadow-sm">
+
+                            {{-- Edit --}}
+                            <button type="button" class="dropdown-item btn-edit-test" data-id="{{ $test->test_id }}"
+                                data-name="{{ $test->test_name }}" data-code="{{ $test->test_code }}"
+                                data-range="{{ $test->normal_range }}" data-unit="{{ $test->unit }}"
+                                data-price="{{ $test->price }}">
+                                <i class="fas fa-edit mr-2 text-primary"></i>
+                                កែប្រែ
                             </button>
-                        </form>
+
+                            {{-- Delete --}}
+                            <form action="{{ route('lab.tests.destroy', $test->test_id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+
+                                <!-- <button type="submit" class="dropdown-item"
+                                        onclick="return confirm('តើអ្នកពិតជាចង់លុបតេស្តនេះមែនទេ?');">
+                                        <i class="fas fa-trash-alt mr-2 text-danger"></i>
+                                        លុប
+                                    </button> -->
+                                <button type="button" class="dropdown-item text-danger btn-delete-test"
+                                    data-id="{{ $test->test_id }}" data-name="{{ $test->test_name }}" data-toggle="modal"
+                                    data-target="#modalDeleteTest">
+
+                                    <i class="fas fa-trash-alt mr-2"></i>
+                                    លុប
+                                </button>
+                            </form>
+
+
+                        </div>
                     </div>
                 </td>
             </tr>

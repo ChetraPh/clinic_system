@@ -8,7 +8,7 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4 mt-3">
         <h2 class="page-title">
-         
+
         </h2>
     </div>
 
@@ -47,7 +47,7 @@
                                 <tr>
                                     <th width="30%">ឈ្មោះ File Backup</th>
                                     <th>ថ្ងៃបង្កើត</th>
-                                    <th width="180px">Action</th>
+                                    <th width="180px">សកម្មភាព</th>
                                 </tr>
                             </thead>
                             <tbody id="backupTableBody">

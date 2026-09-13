@@ -89,15 +89,18 @@ html {
 .btn-primary {
     background-color: var(--primary-color) !important;
 }
+
 .btn-outline-primary {
     border-color: var(--primary-color) !important;
     color: var(--primary-color) !important;
 }
+
 .btn-outline-primary:hover {
     background-color: var(--primary-color) !important;
     color: #fff !important;
 }
-.bg-primary{
+
+.bg-primary {
     background-color: var(--primary-color) !important;
 }
 
@@ -120,6 +123,13 @@ html {
 .modal-green .modal-footer {
     border-top: 1px solid #eee;
 }
+
+.modal-header-custom {
+    background-color: var(--primary-color);
+    ;
+    color: white;
+}
+
 
 body {
     background: #f8faf9;
@@ -180,6 +190,7 @@ body.sidebar-mini.sidebar-collapse .nav-sidebar .nav-icon {
     flex-direction: column;
     gap: 10px;
 }
+
 .toast-custom {
     min-width: 260px;
     max-width: 340px;
@@ -193,9 +204,18 @@ body.sidebar-mini.sidebar-collapse .nav-sidebar .nav-icon {
     gap: 10px;
     animation: toastIn .25s ease-out;
 }
-.toast-custom.success { background: #28a745; }
-.toast-custom.error { background: #dc3545; }
-.toast-custom.info { background: #17a2b8; }
+
+.toast-custom.success {
+    background: #28a745;
+}
+
+.toast-custom.error {
+    background: #dc3545;
+}
+
+.toast-custom.info {
+    background: #17a2b8;
+}
 
 
 /* button ... */
@@ -216,3 +236,4 @@ body.sidebar-mini.sidebar-collapse .nav-sidebar .nav-icon {
 .action-icons .dropdown-item {
     cursor: pointer;
 }
+

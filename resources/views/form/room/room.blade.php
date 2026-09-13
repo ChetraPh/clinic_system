@@ -271,7 +271,7 @@
 <div class="modal fade" id="modalEdit" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content border-0 shadow-lg">
-            <div class="modal-header modal-header-edit">
+            <div class="modal-header modal-header-custom">
                 <h5 class="modal-title font-weight-bold"><i class="fas fa-edit mr-2"></i> កែប្រែបន្ទប់ (Edit Room)</h5>
                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
