@@ -154,8 +154,7 @@
                 <div class="col-lg-7 mb-4">
                     <div class="card-modern">
                         <div class="card-header d-flex align-items-center justify-content-between">
-                            <span><i class="fas fa-cash-register text-primary mr-2"></i> ព័ត៌មានលក់ថ្នាំ (Point of Sale
-                                Checkout)</span>
+                            <span><i class="fas fa-cash-register text-primary mr-2"></i> ព័ត៌មានលក់ថ្នាំ </span>
                             <span class="badge badge-light border"><i class="fas fa-user mr-1"></i>
                                 អតិថិជន/អ្នកជំងឺ</span>
                         </div>
@@ -180,15 +179,15 @@
                                 </div>
 
                                 <h6 class="font-weight-bold text-dark mb-3"><i
-                                        class="fas fa-shopping-cart text-info mr-1"></i> បញ្ជីថ្នាំត្រូវលក់ (Items List)
+                                        class="fas fa-shopping-cart text-info mr-1"></i> បញ្ជីថ្នាំត្រូវលក់
                                 </h6>
 
                                 <div class="table-responsive mb-3">
                                     <table class="table table-bordered align-middle mb-0" id="sellItemsTable">
                                         <thead class="bg-light">
                                             <tr>
-                                                <th>ថ្នាំ (Select Medicine)</th>
-                                                <th style="width: 140px;">ចំនួន (Qty)</th>
+                                                <th>ថ្នាំ</th>
+                                                <th style="width: 140px;">ចំនួន</th>
                                                 <th style="width: 50px;" class="text-center"><i
                                                         class="fas fa-trash-alt"></i></th>
                                             </tr>
@@ -216,19 +215,18 @@
 
                                 <button type="button" class="btn btn-outline-primary btn-sm mb-4" id="btnAddSellRow"
                                     style="border-radius: 8px; font-weight: 600;">
-                                    <i class="fas fa-plus mr-1"></i> បន្ថែមមុខថ្នាំ (Add Item Row)
+                                    <i class="fas fa-plus mr-1"></i> បន្ថែមថ្នាំ
                                 </button>
 
                                 {{-- Checkout Summary Box --}}
                                 <div
                                     class="checkout-summary-box d-flex flex-wrap justify-content-between align-items-center">
                                     <div>
-                                        <small class="text-light opacity-75 d-block">តម្លៃសរុបត្រូវទូទាត់ (Total
-                                            Amount)</small>
+                                        <small class="text-light opacity-75 d-block">តម្លៃសរុបត្រូវទូទាត់</small>
                                         <div class="total-price-display">$<span id="sellTotalPreview">0.00</span></div>
                                     </div>
                                     <button class="btn checkout-btn" type="submit">
-                                        <i class="fas fa-cash-register mr-2"></i> បញ្ចប់ការលក់ (Complete Sale)
+                                        <i class="fas fa-cash-register mr-2"></i> លក់
                                     </button>
                                 </div>
                             </form>
@@ -240,10 +238,8 @@
                 <div class="col-lg-5 mb-4">
                     <div class="card-modern">
                         <div class="card-header d-flex align-items-center justify-content-between">
-                            <span><i class="fas fa-history text-info mr-2"></i> ប្រវត្តិការលក់ថ្មីៗ (Recent
-                                Transactions)</span>
-                            <span class="badge badge-success"><i class="fas fa-check-double mr-1"></i> Live
-                                History</span>
+                            <span><i class="fas fa-history text-info mr-2"></i> ប្រវត្តិការលក់ថ្មីៗ </span>
+
                         </div>
                         <div class="card-body p-0">
                             <div class="table-responsive">
@@ -253,7 +249,7 @@
                                             <th>កាលបរិច្ឆេទ</th>
                                             <th>អតិថិជន</th>
                                             <th class="text-right">សរុប ($)</th>
-                                            <th class="text-center">វិក្កយបត្រ PDF</th>
+                                            <th class="text-center">វិក្កយបត្រ</th>
                                         </tr>
                                     </thead>
                                     <tbody id="saleHistoryBody">
@@ -634,7 +630,8 @@
                 </div>
                 <div class="modal-footer bg-light">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">បោះបង់</button>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-download mr-1"></i> បញ្ចូលស្តុក</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-download mr-1"></i>
+                        បញ្ចូលស្តុក</button>
                 </div>
             </form>
         </div>
@@ -808,8 +805,22 @@
         sellHistory: "{{ route('pharmacy.sell.history') }}",
     };
 
+
     $(function () {
         const $stockActionBtns = $('#stockActionBtns');
+        // Open modal when clicking a receipt button in sale history
+        $(document).on('click', '.btn-view-receipt', function () {
+            const url = $(this).data('url');
+            $('#receiptFrame').attr('src', url);
+            $('#modalReceipt').modal('show');
+        });
+
+        // Print only the iframe's content
+        $(document).on('click', '#btnPrintReceipt', function () {
+            const frame = document.getElementById('receiptFrame');
+            frame.contentWindow.focus();
+            frame.contentWindow.print();
+        });
         let sellScriptLoaded = false;
 
         $.extend(true, $.fn.dataTable.defaults, {

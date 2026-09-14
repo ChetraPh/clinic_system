@@ -24,7 +24,8 @@ class PrescriptionNotification extends Notification
 
     public function toDatabase($notifiable): array
     {
-        $patientName = optional($this->prescription->patient)->name ?? 'a patient';
+        // Prescription -> MedicalRecord -> Patient (no direct ->patient on Prescription)
+        $patientName = optional(optional($this->prescription->medicalRecord)->patient)->full_name ?? 'a patient';
 
         return [
             'type' => 'prescription',
@@ -32,7 +33,7 @@ class PrescriptionNotification extends Notification
             'message' => "A new prescription was created for {$patientName}",
             'icon' => 'fa-file-prescription',
             'color' => 'text-primary',
-            'url' => route('pharmacy.prescriptions.index'),
+            'url' => route('pharmacy.prescriptions.index')
         ];
     }
 }

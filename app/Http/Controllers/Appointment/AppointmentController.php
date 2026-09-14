@@ -7,7 +7,9 @@ use App\Models\Appointment;
 use App\Models\Patient;
 use App\Models\User;
 use App\Notifications\AppointmentNotification;
+use App\Helpers\NotifiesRoles;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 
@@ -170,10 +172,12 @@ class AppointmentController extends Controller
 
         $appointment = Appointment::create($validated);
 
+        // Notify the assigned doctor AND everyone with the admin role
         $doctor = User::find($validated['user_id']);
+        $recipients = NotifiesRoles::specificUserPlusRoles($doctor, ['admin']);
 
-        if ($doctor) {
-            $doctor->notify(new AppointmentNotification($appointment, 'created'));
+        if ($recipients->isNotEmpty()) {
+            Notification::send($recipients, new AppointmentNotification($appointment, 'created'));
         }
 
         return redirect()->back()->with('success', 'ការណាត់ជួបត្រូវបានបង្កើតដោយជោគជ័យ');
@@ -269,7 +273,21 @@ class AppointmentController extends Controller
             );
         }
 
+        $oldStatus = $appointment->status;
+
         $appointment->update($validated);
+
+        // Notify the assigned doctor AND everyone with the admin role
+        $doctor = User::find($validated['user_id']);
+        $recipients = NotifiesRoles::specificUserPlusRoles($doctor, ['admin']);
+
+        if ($recipients->isNotEmpty()) {
+            $action = ($validated['status'] === 'cancelled' && $oldStatus !== 'cancelled')
+                ? 'cancelled'
+                : 'updated';
+
+            Notification::send($recipients, new AppointmentNotification($appointment, $action));
+        }
 
         return redirect()->back()->with('success', 'ការណាត់ជួបត្រូវបានកែប្រែដោយជោគជ័យ');
     }

@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\Models\Prescription;
 use App\Notifications\PrescriptionNotification;
-use App\Support\NotifiesRoles;
+use App\Helpers\NotifiesRoles;
 use Illuminate\Support\Facades\Notification;
 
 class PrescriptionObserver

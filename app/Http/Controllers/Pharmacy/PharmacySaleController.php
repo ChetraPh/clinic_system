@@ -38,7 +38,7 @@ class PharmacySaleController extends Controller
                     'sale_date' => $sale->sale_date->format('d-M-Y h:i A'),
                     'patient_name' => $sale->patient->full_name ?? 'អតិថិជនចរណ៍',
                     'total_amount' => (float) $sale->total_amount,
-                    'pdf_url' => route('pharmacy.sell.pdf', $sale->sale_id),
+                    'receipt_url' => route('pharmacy.sell.receipt', $sale->sale_id),
                 ];
             });
 
@@ -95,7 +95,7 @@ class PharmacySaleController extends Controller
             'message' => 'លក់ជោគជ័យ',
             'sale_id' => $sale->sale_id,
             'total_amount' => $sale->total_amount,
-            'pdf_url' => route('pharmacy.sell.pdf', $sale->sale_id),
+            'receipt_url' => route('pharmacy.sell.receipt', $sale->sale_id),
         ]);
     }
 
@@ -152,21 +152,15 @@ class PharmacySaleController extends Controller
 
         return $subtotal;
     }
-    public function exportPdf(Sale $sale)
+    // PharmacySaleController.php
+    public function receipt(Sale $sale)
     {
-
         $sale->load(['items.medicine', 'patient', 'user']);
 
         $general = GeneralSettings::first();
         $billing = InvoiceSetting::firstOrCreate(['id' => 1]);
 
-        $pdf = Pdf::loadView('form.phamacy.sale_pdf', compact('sale', 'general', 'billing'))
-            ->setPaper(
-                $billing->print_size === '80mm' ? [0, 0, 226.77, 800] : 'a4',
-                'portrait'
-            );
-
-        return $pdf->stream('prescription_' . $sale->sale_id . '.pdf');
+        return view('form.phamacy.sale_receipt', compact('sale', 'general', 'billing'));
     }
     public function search(Request $request)
     {

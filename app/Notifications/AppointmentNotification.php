@@ -11,12 +11,10 @@ class AppointmentNotification extends Notification
     use Queueable;
 
     protected Appointment $appointment;
-    protected string $action;
+    protected string $action; // 'created' | 'updated' | 'cancelled'
 
-    public function __construct(
-        Appointment $appointment,
-        string $action = 'created'
-    ) {
+    public function __construct(Appointment $appointment, string $action = 'created')
+    {
         $this->appointment = $appointment;
         $this->action = $action;
     }
@@ -28,38 +26,21 @@ class AppointmentNotification extends Notification
 
     public function toDatabase($notifiable): array
     {
-        $patientName = optional($this->appointment->patient)->full_name
-            ?? 'អ្នកជំងឺ';
+        $patientName = optional($this->appointment->patient)->full_name ?? 'a patient';
 
         $messages = [
-            'created' => "មានការណាត់ជួបថ្មីជាមួយអ្នកជំងឺ {$patientName}",
-            'updated' => "ការណាត់ជួបជាមួយអ្នកជំងឺ {$patientName} ត្រូវបានកែប្រែ",
-            'cancelled' => "ការណាត់ជួបជាមួយអ្នកជំងឺ {$patientName} ត្រូវបានលុបចោល",
+            'created'   => "New appointment booked with {$patientName}",
+            'updated'   => "Appointment with {$patientName} was updated",
+            'cancelled' => "Appointment with {$patientName} was cancelled",
         ];
 
         return [
-            'type' => 'appointment',
-
-            'title' => match ($this->action) {
-                'created' => 'ការណាត់ជួបថ្មី',
-                'updated' => 'ការណាត់ជួបត្រូវបានកែប្រែ',
-                'cancelled' => 'ការណាត់ជួបត្រូវបានលុបចោល',
-                default => 'ការជូនដំណឹង',
-            },
-
-            'message' => $messages[$this->action]
-                ?? $messages['created'],
-
-            'icon' => 'fa-calendar-check',
-
-            'color' => $this->action === 'cancelled'
-                ? 'text-danger'
-                : 'text-primary',
-
-            'url' => route(
-                'appointment.show',
-                $this->appointment->appointment_id
-            ),
+            'type'    => 'appointment',
+            'title'   => 'Appointment ' . ucfirst($this->action),
+            'message' => $messages[$this->action] ?? $messages['created'],
+            'icon'    => 'fa-calendar-check',
+            'color'   => $this->action === 'cancelled' ? 'text-danger' : 'text-primary',
+            'url'     => route('appointment.show', $this->appointment->appointment_id),
         ];
     }
 }

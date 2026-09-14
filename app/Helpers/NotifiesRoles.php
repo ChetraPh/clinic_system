@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Support;
+namespace App\Helpers;
 
 use App\Models\User;
 use Illuminate\Support\Collection;

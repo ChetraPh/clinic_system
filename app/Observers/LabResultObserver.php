@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\Models\LabResult;
 use App\Notifications\LabResultNotification;
-use App\Support\NotifiesRoles;
+use App\Helpers\NotifiesRoles;
 use Illuminate\Support\Facades\Notification;
 
 class LabResultObserver

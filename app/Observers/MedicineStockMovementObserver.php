@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\Models\Pharmacy\MedicineStockMovement;
 use App\Notifications\LowStockNotification;
-use App\Support\NotifiesRoles;
+use App\Helpers\NotifiesRoles;
 use Illuminate\Support\Facades\Notification;
 
 class MedicineStockMovementObserver

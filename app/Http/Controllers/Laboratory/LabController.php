@@ -7,8 +7,11 @@ use App\Models\LabOrder;
 use App\Models\LabResult;
 use App\Models\LabTest;
 use App\Models\MedicalRecord;
+use App\Notifications\LabResultNotification;
+use App\Helpers\NotifiesRoles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 
 class LabController extends Controller
 {
@@ -140,7 +143,19 @@ class LabController extends Controller
             }
 
             $order->update(['status' => 'completed']);
+
             DB::commit();
+
+            // Notify the ordering doctor + admins + nurses that results are ready
+            $order->loadMissing('medicalRecord.doctor', 'medicalRecord.patient');
+            $doctorUser = optional($order->medicalRecord)->doctor;
+
+            $recipients = NotifiesRoles::specificUserPlusRoles($doctorUser, ['admin', 'nurse']);
+
+            if ($recipients->isNotEmpty()) {
+                Notification::send($recipients, new LabResultNotification($order));
+            }
+
             return redirect()->back()->with(['success' => 'លទ្ធផលពិនិត្យមន្ទីរពិសោធន៍ត្រូវបានរក្សាទុកដោយជោគជ័យ']);
         } catch (\Exception $e) {
             DB::rollBack();

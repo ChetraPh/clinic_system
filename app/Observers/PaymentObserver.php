@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\Models\Payment;
 use App\Notifications\PaymentNotification;
-use App\Support\NotifiesRoles;
+use App\Helpers\NotifiesRoles;
 use Illuminate\Support\Facades\Notification;
 
 class PaymentObserver

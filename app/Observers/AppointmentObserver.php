@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\Models\Appointment;
 use App\Notifications\AppointmentNotification;
-use App\Support\NotifiesRoles;
+use App\Helpers\NotifiesRoles;
 use Illuminate\Support\Facades\Notification;
 
 class AppointmentObserver

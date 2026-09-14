@@ -9,8 +9,11 @@ use App\Models\Pharmacy\MedicineBatch;
 use App\Models\Pharmacy\MedicineStockMovement;
 use App\Models\Prescription;
 use App\Models\PrescriptionItem;
+use App\Notifications\PrescriptionNotification;
+use App\Helpers\NotifiesRoles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 
 class PrescriptionController extends Controller
 {
@@ -33,10 +36,10 @@ class PrescriptionController extends Controller
                     $pq->where('full_name', 'LIKE', $searchTerm)
                         ->orWhere('patient_code', 'LIKE', $searchTerm);
                 })
-                ->orWhereHas('items.medicine', function ($mq) use ($searchTerm) {
-                    $mq->where('medicine_name', 'LIKE', $searchTerm);
-                })
-                ->orWhere('prescription_id', 'LIKE', $searchTerm);
+                    ->orWhereHas('items.medicine', function ($mq) use ($searchTerm) {
+                        $mq->where('medicine_name', 'LIKE', $searchTerm);
+                    })
+                    ->orWhere('prescription_id', 'LIKE', $searchTerm);
             });
         }
 
@@ -47,14 +50,14 @@ class PrescriptionController extends Controller
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
-                'html'  => view('form.phamacy.partials.prescription_table', compact('prescriptions'))->render(),
+                'html' => view('form.phamacy.partials.prescription_table', compact('prescriptions'))->render(),
                 'total' => $totalPrescriptions,
             ]);
         }
 
         return view('form.phamacy.prescriptions', compact('prescriptions', 'totalPrescriptions', 'medicalRecords', 'medicines'));
     }
-    
+
 
     /**
      * Store a newly created prescription in storage.
@@ -62,35 +65,43 @@ class PrescriptionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'record_id'       => 'required|exists:medical_records,record_id',
+            'record_id' => 'required|exists:medical_records,record_id',
             'prescribed_date' => 'required|date',
-            'items'           => 'required|array|min:1',
-            'items.*.medicine_id'   => 'required|exists:medicines,medicine_id',
-            'items.*.dosage'        => 'required|string|max:100',
-            'items.*.frequency'     => 'required|string|max:50',
+            'items' => 'required|array|min:1',
+            'items.*.medicine_id' => 'required|exists:medicines,medicine_id',
+            'items.*.dosage' => 'required|string|max:100',
+            'items.*.frequency' => 'required|string|max:50',
             'items.*.duration_days' => 'required|integer|min:1',
-            'items.*.quantity'      => 'required|integer|min:1',
+            'items.*.quantity' => 'required|integer|min:1',
         ]);
 
         DB::beginTransaction();
         try {
             $prescription = Prescription::create([
-                'record_id'       => $request->record_id,
+                'record_id' => $request->record_id,
                 'prescribed_date' => $request->prescribed_date,
             ]);
 
             foreach ($request->items as $item) {
                 PrescriptionItem::create([
                     'prescription_id' => $prescription->prescription_id,
-                    'medicine_id'     => $item['medicine_id'],
-                    'dosage'          => $item['dosage'],
-                    'frequency'       => $item['frequency'],
-                    'duration_days'   => $item['duration_days'],
-                    'quantity'        => $item['quantity'],
+                    'medicine_id' => $item['medicine_id'],
+                    'dosage' => $item['dosage'],
+                    'frequency' => $item['frequency'],
+                    'duration_days' => $item['duration_days'],
+                    'quantity' => $item['quantity'],
                 ]);
             }
 
             DB::commit();
+
+            // Notify pharmacists (need to dispense) + admins
+            $recipients = NotifiesRoles::usersForRoles(['admin', 'pharmacist']);
+
+            if ($recipients->isNotEmpty()) {
+                Notification::send($recipients, new PrescriptionNotification($prescription));
+            }
+
             return redirect()->back()->with(['success' => 'វេជ្ជបញ្ជាត្រូវបានបង្កើតដោយជោគជ័យ (Prescription created successfully)']);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -115,15 +126,16 @@ class PrescriptionController extends Controller
 
                 // Deduct from batches ordered by FIFO (expiring soonest first)
                 $batches = MedicineBatch::where('medicine_id', $item->medicine_id)
-                    ->where(function($q) {
+                    ->where(function ($q) {
                         $q->where('quantity_remaining', '>', 0)
-                          ->orWhere('remaining_quantity', '>', 0);
+                            ->orWhere('remaining_quantity', '>', 0);
                     })
                     ->orderBy('expiry_date', 'asc')
                     ->get();
 
                 foreach ($batches as $batch) {
-                    if ($qtyNeeded <= 0) break;
+                    if ($qtyNeeded <= 0)
+                        break;
 
                     $available = $batch->quantity_remaining ?? $batch->remaining_quantity ?? 0;
                     $deduct = min($qtyNeeded, $available);
@@ -134,12 +146,12 @@ class PrescriptionController extends Controller
 
                     // Record stock movement
                     MedicineStockMovement::create([
-                        'batch_id'       => $batch->batch_id,
-                        'movement_type'  => 'OUT',
-                        'quantity'       => $deduct,
+                        'batch_id' => $batch->batch_id,
+                        'movement_type' => 'OUT',
+                        'quantity' => $deduct,
                         'reference_type' => 'PRESCRIPTION',
-                        'reference_id'   => $prescription->prescription_id,
-                        'movement_date'  => now(),
+                        'reference_id' => $prescription->prescription_id,
+                        'movement_date' => now(),
                     ]);
 
                     $qtyNeeded -= $deduct;

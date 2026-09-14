@@ -12,9 +12,12 @@ use App\Models\InvoiceItem;
 use App\Models\InvoicePayment;
 use App\Models\Patient;
 use App\Models\Admission;
+use App\Notifications\PaymentNotification;
+use App\Helpers\NotifiesRoles;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 
 class BillingController extends Controller
@@ -62,8 +65,8 @@ class BillingController extends Controller
             $searchTerm = '%' . $request->search . '%';
             $query->where(function ($q) use ($searchTerm) {
                 $q->where('invoice_number', 'LIKE', $searchTerm)
-                  ->orWhere('patient_name', 'LIKE', $searchTerm)
-                  ->orWhere('patient_phone', 'LIKE', $searchTerm);
+                    ->orWhere('patient_name', 'LIKE', $searchTerm)
+                    ->orWhere('patient_phone', 'LIKE', $searchTerm);
             });
         }
 
@@ -95,8 +98,8 @@ class BillingController extends Controller
 
         // Stats summary
         $totalInvoices = Invoice::count();
-        $totalRevenue  = Invoice::sum('paid_amount');
-        $totalUnpaid   = Invoice::where('status', '!=', 'cancelled')->sum('balance');
+        $totalRevenue = Invoice::sum('paid_amount');
+        $totalUnpaid = Invoice::where('status', '!=', 'cancelled')->sum('balance');
 
         $patients = Patient::select(['patient_id', 'full_name', 'phone', 'patient_code'])->get();
 
@@ -107,10 +110,10 @@ class BillingController extends Controller
 
         if ($request->ajax()) {
             return response()->json([
-                'html'          => view('billing.partials.table', compact('invoices'))->render(),
+                'html' => view('billing.partials.table', compact('invoices'))->render(),
                 'totalInvoices' => $totalInvoices,
-                'totalRevenue'  => number_format($totalRevenue, 2),
-                'totalUnpaid'   => number_format($totalUnpaid, 2),
+                'totalRevenue' => number_format($totalRevenue, 2),
+                'totalUnpaid' => number_format($totalUnpaid, 2),
             ]);
         }
 
@@ -128,8 +131,8 @@ class BillingController extends Controller
         if (request()->ajax() || request()->wantsJson()) {
             return response()->json([
                 'success' => true,
-                'data'    => $invoice,
-                'html'    => view('billing.partials.receipt', compact('invoice'))->render(),
+                'data' => $invoice,
+                'html' => view('billing.partials.receipt', compact('invoice'))->render(),
             ]);
         }
 
@@ -138,7 +141,7 @@ class BillingController extends Controller
 
 
     // Edit an existing invoice (only allowed while unpaid and nothing has been paid against it yet).
-    
+
     public function edit($id): JsonResponse
     {
         $this->authorizeAction('edit-invoices');
@@ -154,7 +157,7 @@ class BillingController extends Controller
 
         return response()->json([
             'success' => true,
-            'data'    => $invoice,
+            'data' => $invoice,
         ]);
     }
 
@@ -177,28 +180,28 @@ class BillingController extends Controller
             // Create Invoice
             $invoice = Invoice::create([
                 'invoice_number' => $invoiceNumber,
-                'patient_id'     => $request->patient_id,
-                'admission_id'   => $request->admission_id, // null = OPD, set = IPD
-                'patient_name'   => $request->patient_name,
-                'patient_phone'  => $request->patient_phone,
-                'total_amount'   => $totalAmount,
-                'paid_amount'    => 0,
-                'balance'        => $totalAmount,
-                'status'         => 'unpaid',
-                'notes'          => $request->notes,
-                'created_by'     => auth()->id(),
+                'patient_id' => $request->patient_id,
+                'admission_id' => $request->admission_id, // null = OPD, set = IPD
+                'patient_name' => $request->patient_name,
+                'patient_phone' => $request->patient_phone,
+                'total_amount' => $totalAmount,
+                'paid_amount' => 0,
+                'balance' => $totalAmount,
+                'status' => 'unpaid',
+                'notes' => $request->notes,
+                'created_by' => auth()->id(),
             ]);
 
             // Create Invoice Items
             foreach ($request->items as $item) {
                 $subtotal = $item['qty'] * $item['unit_price'];
                 InvoiceItem::create([
-                    'invoice_id'  => $invoice->id,
-                    'item_type'   => $item['item_type'],
+                    'invoice_id' => $invoice->id,
+                    'item_type' => $item['item_type'],
                     'description' => $item['description'],
-                    'qty'         => $item['qty'],
-                    'unit_price'  => $item['unit_price'],
-                    'subtotal'    => $subtotal,
+                    'qty' => $item['qty'],
+                    'unit_price' => $item['unit_price'],
+                    'subtotal' => $subtotal,
                 ]);
             }
 
@@ -208,7 +211,7 @@ class BillingController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'វិក្កយបត្រត្រូវបានបង្កើតដោយជោគជ័យ (Invoice created successfully)',
-                    'data'    => $invoice->load(['items', 'patient', 'admission.room']),
+                    'data' => $invoice->load(['items', 'patient', 'admission.room']),
                 ], 201);
             }
 
@@ -246,11 +249,11 @@ class BillingController extends Controller
             }
 
             $invoice->update([
-                'patient_name'  => $request->patient_name,
+                'patient_name' => $request->patient_name,
                 'patient_phone' => $request->patient_phone,
-                'notes'         => $request->notes,
-                'total_amount'  => $totalAmount,
-                'balance'       => $totalAmount, // paid_amount is guaranteed 0 here
+                'notes' => $request->notes,
+                'total_amount' => $totalAmount,
+                'balance' => $totalAmount, // paid_amount is guaranteed 0 here
             ]);
 
             // Replace items wholesale — simplest and safest for an unpaid,
@@ -258,12 +261,12 @@ class BillingController extends Controller
             $invoice->items()->delete();
             foreach ($request->items as $item) {
                 InvoiceItem::create([
-                    'invoice_id'  => $invoice->id,
-                    'item_type'   => $item['item_type'],
+                    'invoice_id' => $invoice->id,
+                    'item_type' => $item['item_type'],
                     'description' => $item['description'],
-                    'qty'         => $item['qty'],
-                    'unit_price'  => $item['unit_price'],
-                    'subtotal'    => $item['qty'] * $item['unit_price'],
+                    'qty' => $item['qty'],
+                    'unit_price' => $item['unit_price'],
+                    'subtotal' => $item['qty'] * $item['unit_price'],
                 ]);
             }
 
@@ -272,7 +275,7 @@ class BillingController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'វិក្កយបត្រត្រូវបានកែប្រែដោយជោគជ័យ (Invoice updated successfully)',
-                'data'    => $invoice->fresh(['items', 'patient', 'admission.room']),
+                'data' => $invoice->fresh(['items', 'patient', 'admission.room']),
             ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
@@ -307,9 +310,9 @@ class BillingController extends Controller
             }
 
             $invoice->update([
-                'status'        => 'cancelled',
-                'cancelled_by'  => auth()->id(),
-                'cancelled_at'  => now(),
+                'status' => 'cancelled',
+                'cancelled_by' => auth()->id(),
+                'cancelled_at' => now(),
                 'cancel_reason' => $request->cancel_reason,
             ]);
 
@@ -318,7 +321,7 @@ class BillingController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'វិក្កយបត្រត្រូវបានលុបចោលដោយជោគជ័យ (Invoice cancelled successfully)',
-                'data'    => $invoice->fresh(['items', 'patient', 'admission.room']),
+                'data' => $invoice->fresh(['items', 'patient', 'admission.room']),
             ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
@@ -376,22 +379,29 @@ class BillingController extends Controller
 
             // Record transaction
             $payment = InvoicePayment::create([
-                'invoice_id'      => $invoice->id,
-                'amount'          => $paymentAmount,
-                'payment_method'  => $request->payment_method,
+                'invoice_id' => $invoice->id,
+                'amount' => $paymentAmount,
+                'payment_method' => $request->payment_method,
                 'transaction_ref' => $request->transaction_ref ?? ('TXN-' . time()),
-                'paid_at'         => now(),
-                'processed_by'    => auth()->id(),
+                'paid_at' => now(),
+                'processed_by' => auth()->id(),
             ]);
 
             // Update Invoice status and balance
             $invoice->update([
                 'paid_amount' => $newPaid,
-                'balance'     => $newBalance,
-                'status'      => $status,
+                'balance' => $newBalance,
+                'status' => $status,
             ]);
 
             DB::commit();
+
+            // Notify cashiers + admins that a payment was recorded
+            $recipients = NotifiesRoles::usersForRoles(['admin', 'cashier']);
+
+            if ($recipients->isNotEmpty()) {
+                Notification::send($recipients, new PaymentNotification($payment));
+            }
 
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
@@ -427,7 +437,7 @@ class BillingController extends Controller
         );
 
         $nextSequence = (int) DB::getPdo()->lastInsertId();
-        $sequenceStr  = str_pad($nextSequence, 3, '0', STR_PAD_LEFT);
+        $sequenceStr = str_pad($nextSequence, 3, '0', STR_PAD_LEFT);
 
         return "INV-{$datePrefix}-{$sequenceStr}";
     }

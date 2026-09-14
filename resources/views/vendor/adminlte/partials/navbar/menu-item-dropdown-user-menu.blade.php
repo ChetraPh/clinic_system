@@ -54,59 +54,137 @@ NOTIFICATION DATA (added)
     $unreadCount = Auth::user()->unreadNotifications()->count()
 )
 
+{{-- ============================================================
+NOTIFICATION MENU
+============================================================ --}}
+<li class="nav-item dropdown">
 
-<li class="nav-item dropdown user-menu">
+    <a href="#" class="nav-link" data-toggle="dropdown" title="ការជូនដំណឹង">
 
-    {{-- =========================================================
-    USER MENU TOGGLER
-    ========================================================== --}}
-
-    <a href="#" class="nav-link dropdown-toggle d-flex align-items-center" data-toggle="dropdown">
-
-        {{-- Notification (badge is now live) --}}
-        <span class="mr-3 position-relative">
-
-            <i class="fas fa-bell" style="font-size: 18px;">
-            </i>
+        <span class="position-relative">
+            <i class="fas fa-bell" style="font-size: 18px;"></i>
 
             <span id="navbarNotifBadge" class="badge badge-danger navbar-badge"
                 style="font-size: 9px; {{ $unreadCount === 0 ? 'display:none;' : '' }}">
                 {{ $unreadCount }}
             </span>
-
         </span>
 
+    </a>
+
+    {{-- Notification Dropdown --}}
+    <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+
+        <li class="dropdown-header d-flex justify-content-between align-items-center">
+
+            <span>ការជូនដំណឹង</span>
+
+            @if($unreadCount > 0)
+                <form action="{{ route('notifications.readAll') }}" method="POST" class="m-0">
+                    @csrf
+
+                    <button type="submit" class="btn btn-link btn-sm p-0" style="font-size: 11px;">
+                        ធ្វើសញ្ញាអានទាំងអស់
+                    </button>
+                </form>
+            @endif
+
+        </li>
+
+        @forelse($unreadNotifications as $notification)
+
+            <li class="dropdown-divider"></li>
+
+            <li>
+
+                <form action="{{ route('notifications.read', $notification->id) }}" method="POST" class="m-0">
+
+                    @csrf
+
+                    <button type="submit" class="dropdown-item d-flex align-items-start text-wrap py-2"
+                        style="white-space: normal;">
+
+                        <i class="fas {{ $notification->data['icon'] ?? 'fa-bell' }}
+                               {{ $notification->data['color'] ?? 'text-primary' }}
+                               mr-2 mt-1"></i>
+
+                        <span>
+
+                            <strong style="font-size: 13px;">
+                                {{ $notification->data['title'] ?? 'Notification' }}
+                            </strong>
+
+                            <br>
+
+                            <small class="text-muted">
+                                {{ $notification->data['message'] ?? '' }}
+                            </small>
+
+                            <br>
+
+                            <small class="text-muted">
+                                {{ $notification->created_at->diffForHumans() }}
+                            </small>
+
+                        </span>
+
+                    </button>
+
+                </form>
+
+            </li>
+
+        @empty
+
+            <li class="dropdown-item text-center text-muted py-2">
+                គ្មានការជូនដំណឹង
+            </li>
+
+        @endforelse
+
+        <li class="dropdown-divider"></li>
+
+        <li>
+            <a href="{{ route('notifications.index') }}" class="dropdown-item text-center">
+                មើលការជូនដំណឹងទាំងអស់
+            </a>
+        </li>
+
+    </ul>
+
+</li>
+
+
+{{-- ============================================================
+USER / PROFILE MENU
+============================================================ --}}
+<li class="nav-item dropdown user-menu">
+
+    <a href="#" class="nav-link dropdown-toggle d-flex align-items-center" data-toggle="dropdown">
 
         {{-- User Information --}}
         <span class="d-flex flex-column mr-2" style="line-height: 1.2;">
 
-            {{-- User Name --}}
             <span id="navbarUserName" style="font-size: 14px; font-weight: 600;">
-
                 {{ Auth::user()->name }}
-
             </span>
 
-
-            {{-- Department --}}
             <small id="navbarDepartment" class="text-muted" style="font-size: 11px;">
-
                 {{ Auth::user()->department->department_name ?? 'No Department' }}
-
             </small>
 
         </span>
 
 
-        {{-- Navbar Profile Image --}}
+        {{-- Profile Image --}}
         @if(config('adminlte.usermenu_image'))
 
             <img id="navbarUserAvatar" src="{{ Auth::user()->adminlte_image() }}" class="user-image img-circle elevation-2"
                 alt="{{ Auth::user()->name }}" style="
-                                                    width: 35px;
-                                                    height: 35px;
-                                                    object-fit: cover;
-                                                 ">
+                        width: 35px;
+                        height: 35px;
+                        object-fit: cover;
+                     ">
 
         @endif
 
@@ -114,11 +192,9 @@ NOTIFICATION DATA (added)
 
 
     {{-- =========================================================
-    USER MENU DROPDOWN
+    PROFILE DROPDOWN
     ========================================================== --}}
-
     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-
 
         {{-- User Menu Header --}}
         @if(
@@ -127,45 +203,36 @@ NOTIFICATION DATA (added)
                 )
 
                 <li class="user-header
-                                                                                {{ config(
+                        {{ config(
                 'adminlte.usermenu_header_class',
                 'bg-primary'
             ) }}
-                                                                                @if(!config('adminlte.usermenu_image'))
-                                                                                    h-auto
-                                                                                @endif
-                                                                            ">
+                        @if(!config('adminlte.usermenu_image'))
+                            h-auto
+                        @endif
+                    ">
 
-                    {{-- Dropdown Profile Image --}}
                     @if(config('adminlte.usermenu_image'))
 
                         <img id="dropdownUserAvatar" src="{{ Auth::user()->adminlte_image() }}" class="img-circle elevation-2"
                             alt="{{ Auth::user()->name }}" style="
-                                                                                                                            width: 90px;
-                                                                                                                            height: 90px;
-                                                                                                                            object-fit: cover;
-                                                                                                                         ">
+                                        width: 90px;
+                                        height: 90px;
+                                        object-fit: cover;
+                                     ">
 
                     @endif
 
-
-                    <p class="
-                                                                                    @if(!config('adminlte.usermenu_image'))
-                                                                                        mt-0
-                                                                                    @endif
-                                                                                ">
+                    <p>
 
                         <span id="dropdownUserName">
                             {{ Auth::user()->name }}
                         </span>
 
-
                         @if(config('adminlte.usermenu_desc'))
 
                             <small id="dropdownUserDepartment">
-
                                 {{ Auth::user()->adminlte_desc() }}
-
                             </small>
 
                         @endif
@@ -181,52 +248,6 @@ NOTIFICATION DATA (added)
         @endif
 
 
-        {{-- =========================================================
-        NOTIFICATIONS LIST (added)
-        ========================================================== --}}
-
-        <li class="dropdown-header d-flex justify-content-between align-items-center">
-            <span>ការជូនដំណឹង</span>
-            @if($unreadCount > 0)
-                <form action="{{ route('notifications.readAll') }}" method="POST" class="m-0">
-                    @csrf
-                    <button type="submit" class="btn btn-link btn-sm p-0" style="font-size: 11px;">
-                        ធ្វើសញ្ញាអានទាំងអស់
-                    </button>
-                </form>
-            @endif
-        </li>
-
-        @forelse($unreadNotifications as $notification)
-            <li class="dropdown-divider"></li>
-            <li>
-                <form action="{{ route('notifications.read', $notification->id) }}" method="POST" class="m-0">
-                    @csrf
-                    <button type="submit" class="dropdown-item d-flex align-items-start text-wrap py-2"
-                        style="white-space: normal;">
-                        <i
-                            class="fas {{ $notification->data['icon'] ?? 'fa-bell' }} {{ $notification->data['color'] ?? 'text-primary' }} mr-2 mt-1"></i>
-                        <span>
-                            <strong
-                                style="font-size: 13px;">{{ $notification->data['title'] ?? 'Notification' }}</strong><br>
-                            <small class="text-muted">{{ $notification->data['message'] ?? '' }}</small><br>
-                            <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
-                        </span>
-                    </button>
-                </form>
-            </li>
-        @empty
-            <li class="dropdown-item text-center text-muted py-2">គ្មានការជូនដំណឹង</li>
-        @endforelse
-
-        <li class="dropdown-divider"></li>
-        <li>
-            <a href="{{ route('notifications.index') }}" class="dropdown-item text-center">
-                មើលការជូនដំណឹងទាំងអស់
-            </a>
-        </li>
-
-
         {{-- Configured User Menu Links --}}
         @each(
             'adminlte::partials.navbar.dropdown-item',
@@ -239,45 +260,35 @@ NOTIFICATION DATA (added)
         @hasSection('usermenu_body')
 
             <li class="user-body">
-
                 @yield('usermenu_body')
-
             </li>
 
         @endif
 
 
-        {{-- =========================================================
-        USER MENU FOOTER
-        ========================================================== --}}
-
+        {{-- User Menu Footer --}}
         <li class="user-footer">
 
             @if($profile_url)
 
-                <a href="{{ $profile_url }}" class="nav-link btn btn-default btn-flat d-inline-block">
+                <a href="{{ $profile_url }}" class="btn btn-default btn-flat">
 
                     <i class="fa fa-fw fa-user text-lightblue"></i>
                     ប្រវត្តិរូប
+
                 </a>
 
             @endif
 
 
-            <a class="
-                    btn btn-default
-                    btn-flat
-                    float-right
-                    @if(!$profile_url)
-                        btn-block
-                    @endif
-                " href="#" onclick="
+            <a class="btn btn-default btn-flat float-right" href="#" onclick="
                    event.preventDefault();
                    document.getElementById('logout-form').submit();
                ">
 
                 <i class="fa fa-fw fa-power-off text-red"></i>
                 ចាកចេញ
+
             </a>
 
 
@@ -286,9 +297,7 @@ NOTIFICATION DATA (added)
 
                 @if(config('adminlte.logout_method'))
 
-                                {{ method_field(
-                        config('adminlte.logout_method')
-                    ) }}
+                    {{ method_field(config('adminlte.logout_method')) }}
 
                 @endif
 

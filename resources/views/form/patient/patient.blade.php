@@ -3,7 +3,6 @@
 
 @section('content_header')
 <div class="d-flex justify-content-between align-items-center">
-    <h4 class="m-0 text-dark font-weight-bold">ព័ត៌មានអ្នកជំងឺ</h4>
 </div>
 @stop
 
