@@ -16,11 +16,19 @@ class CreateAppointmentsTable extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->id('appointment_id');
 
-            $table->foreignId('patient_id')
-                ->constrained('patients', 'patient_id');
+            // Foreign Key ភ្ជាប់ទៅ patients table (Primary Key: patient_id)
+            $table->unsignedBigInteger('patient_id');
+            $table->foreign('patient_id')
+                  ->references('patient_id')
+                  ->on('patients')
+                  ->onDelete('cascade');
 
-            $table->foreignId('user_id')
-                ->constrained('users', 'user_id');
+            // Foreign Key ភ្ជាប់ទៅ users table (Primary Key: id)
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users')
+                  ->onDelete('cascade');
 
             $table->dateTime('appointment_date');
 
