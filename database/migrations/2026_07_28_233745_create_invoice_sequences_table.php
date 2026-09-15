@@ -14,7 +14,8 @@ class CreateInvoiceSequencesTable extends Migration
     public function up()
     {
         Schema::create('invoice_sequences', function (Blueprint $table) {
-            $table->string('date_key')->unique(); 
+            $table->id(); // បន្ថែម Primary Key ដើមដើម្បីបំពេញលក្ខខណ្ឌ MySQL
+            $table->string('date_key')->unique();
             $table->unsignedInteger('last_number')->default(0);
             $table->timestamps();
         });
