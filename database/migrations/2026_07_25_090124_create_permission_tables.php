@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
@@ -11,9 +10,6 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        // បិទ sql_require_primary_key ជាបណ្ដោះអាសន្នសម្រាប់ Migration Session នេះ
-        DB::statement('SET SESSION sql_require_primary_key = 0;');
-
         $teams = config('permission.teams');
         $tableNames = config('permission.table_names');
         $columnNames = config('permission.column_names');
@@ -122,9 +118,6 @@ return new class extends Migration {
         app('cache')
             ->store(config('permission.cache.store') != 'default' ? config('permission.cache.store') : null)
             ->forget(config('permission.cache.key'));
-
-        // បើក sql_require_primary_key មកវិញបន្ទាប់ពីបង្កើត Tables រួច
-        DB::statement('SET SESSION sql_require_primary_key = 1;');
     }
 
     /**
