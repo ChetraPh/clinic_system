@@ -11,6 +11,7 @@ class CreateMedicalRecordsTable extends Migration
         Schema::create('medical_records', function (Blueprint $table) {
             $table->id('record_id');
 
+<<<<<<< HEAD
             // ត្រូវប្រាកដថា patients មាន patient_id ត្រឹមត្រូវ
             $table->foreignId('patient_id')
                 ->constrained('patients', 'patient_id');
@@ -21,6 +22,21 @@ class CreateMedicalRecordsTable extends Migration
                 ->references('id') // ប្ដូរមក 'id' វិញ ប្រសិនបើតារាង users ប្រើ id ជា PK
                 ->on('users')
                 ->nullOnDelete();
+=======
+            // Foreign Key ភ្ជាប់ទៅ patients table (Primary Key: patient_id)
+            $table->unsignedBigInteger('patient_id');
+            $table->foreign('patient_id')
+                  ->references('patient_id')
+                  ->on('patients')
+                  ->onDelete('cascade');
+
+            // Foreign Key ភ្ជាប់ទៅ users table (Primary Key: id)
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users')
+                  ->onDelete('set null');
+>>>>>>> 50a841fed0665507ef91532f088778c6c8d1d66d
 
             $table->dateTime('visit_date');
 

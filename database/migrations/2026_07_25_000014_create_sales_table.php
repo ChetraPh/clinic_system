@@ -12,17 +12,27 @@ class CreateSalesTable extends Migration
             $table->id('sale_id');
 
             // Nullable: allow walk-in / non-patient sales at the pharmacy counter
-            $table->foreignId('patient_id')
-                ->nullable()
-                ->constrained('patients', 'patient_id')
-                ->nullOnDelete();
+            $table->unsignedBigInteger('patient_id')->nullable();
+            $table->foreign('patient_id')
+                  ->references('patient_id')
+                  ->on('patients')
+                  ->onDelete('set null');
 
+<<<<<<< HEAD
             // កែសម្រួលត្រង់នេះ៖ ប្រើ unsignedBigInteger និង references 'id' របស់តារាង users
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
+=======
+            // Foreign Key ភ្ជាប់ទៅ users table (Primary Key: id)
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users')
+                  ->onDelete('cascade');
+>>>>>>> 50a841fed0665507ef91532f088778c6c8d1d66d
 
             $table->dateTime('sale_date');
             $table->decimal('total_amount', 12, 2)->unsigned()->default(0);

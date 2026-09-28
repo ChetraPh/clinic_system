@@ -1,7 +1,10 @@
 <?php
 
 namespace Database\Seeders;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 50a841fed0665507ef91532f088778c6c8d1d66d
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -57,10 +60,14 @@ class AdminUserSeeder extends Seeder
                     'name' => $data['name'],
                     'username' => $data['username'] ?? null,
                     'password' => Hash::make($data['password']),
+                    'department_id' => $data['department_id'],
                 ]
             );
 
+<<<<<<< HEAD
             // បើ project របស់អ្នកមានប្រើ Spatie Permission សម្រាប់ Assign Role
+=======
+>>>>>>> 50a841fed0665507ef91532f088778c6c8d1d66d
             if (method_exists($user, 'syncRoles')) {
                 $user->syncRoles([$data['role']]);
             }
