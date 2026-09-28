@@ -34,7 +34,7 @@ class MedicineStockMovementObserver
             $recipients = NotifiesRoles::usersForRoles([
                 'admin',
                 'pharmacist',
-                'cashier',
+
             ]);
 
             if ($recipients->isNotEmpty()) {
