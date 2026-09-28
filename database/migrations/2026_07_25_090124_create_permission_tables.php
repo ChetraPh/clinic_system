@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
@@ -10,6 +11,9 @@ return new class extends Migration {
      */
     public function up(): void
     {
+        // បិទ sql_require_primary_key ជាបណ្ដោះអាសន្នសម្រាប់ Migration Session នេះ
+        DB::statement('SET SESSION sql_require_primary_key = 0;');
+
         $teams = config('permission.teams');
         $tableNames = config('permission.table_names');
         $columnNames = config('permission.column_names');
@@ -20,7 +24,6 @@ return new class extends Migration {
         throw_if($teams && empty($columnNames['team_foreign_key'] ?? null), Exception::class, 'Error: team_foreign_key on config/permission.php not loaded. Run [php artisan config:clear] and try again.');
 
         Schema::create($tableNames['permissions'], static function (Blueprint $table) {
-            // $table->engine('InnoDB');
             $table->bigIncrements('id'); // permission id
             $table->string('name', 125);
             $table->string('guard_name', 125);
@@ -30,9 +33,8 @@ return new class extends Migration {
         });
 
         Schema::create($tableNames['roles'], static function (Blueprint $table) use ($teams, $columnNames) {
-            // $table->engine('InnoDB');
             $table->bigIncrements('id'); // role id
-            if ($teams || config('permission.testing')) { // permission.testing is a fix for sqlite testing
+            if ($teams || config('permission.testing')) {
                 $table->unsignedBigInteger($columnNames['team_foreign_key'])->nullable();
                 $table->index($columnNames['team_foreign_key'], 'roles_team_foreign_key_index');
             }
@@ -54,7 +56,7 @@ return new class extends Migration {
             $table->index([$columnNames['model_morph_key'], 'model_type'], 'model_has_permissions_model_id_model_type_index');
 
             $table->foreign($pivotPermission)
-                ->references('id') // permission id
+                ->references('id')
                 ->on($tableNames['permissions'])
                 ->onDelete('cascade');
             if ($teams) {
@@ -71,7 +73,6 @@ return new class extends Migration {
                     'model_has_permissions_permission_model_type_primary'
                 );
             }
-
         });
 
         Schema::create($tableNames['model_has_roles'], static function (Blueprint $table) use ($tableNames, $columnNames, $pivotRole, $teams) {
@@ -82,7 +83,7 @@ return new class extends Migration {
             $table->index([$columnNames['model_morph_key'], 'model_type'], 'model_has_roles_model_id_model_type_index');
 
             $table->foreign($pivotRole)
-                ->references('id') // role id
+                ->references('id')
                 ->on($tableNames['roles'])
                 ->onDelete('cascade');
             if ($teams) {
@@ -106,12 +107,12 @@ return new class extends Migration {
             $table->unsignedBigInteger($pivotRole);
 
             $table->foreign($pivotPermission)
-                ->references('id') // permission id
+                ->references('id')
                 ->on($tableNames['permissions'])
                 ->onDelete('cascade');
 
             $table->foreign($pivotRole)
-                ->references('id') // role id
+                ->references('id')
                 ->on($tableNames['roles'])
                 ->onDelete('cascade');
 
@@ -121,6 +122,9 @@ return new class extends Migration {
         app('cache')
             ->store(config('permission.cache.store') != 'default' ? config('permission.cache.store') : null)
             ->forget(config('permission.cache.key'));
+
+        // បើក sql_require_primary_key មកវិញបន្ទាប់ពីបង្កើត Tables រួច
+        DB::statement('SET SESSION sql_require_primary_key = 1;');
     }
 
     /**

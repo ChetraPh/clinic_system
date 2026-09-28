@@ -1,8 +1,7 @@
 <?php
 
 namespace Database\Seeders;
-
-use App\Models\user;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -14,12 +13,11 @@ class AdminUserSeeder extends Seeder
             [
                 'name' => 'Super Admin',
                 'username' => 'superadmin',
-                'email' => 'supperAdmin@gmai.com',
+                'email' => 'superAdmin@gmail.com',
                 'password' => 'admin123',
                 'role' => 'admin',
                 'department_id' => 1,
             ],
-
             [
                 'name' => 'Doctor User',
                 'username' => 'doctor',
@@ -28,7 +26,6 @@ class AdminUserSeeder extends Seeder
                 'role' => 'doctor',
                 'department_id' => 2,
             ],
-
             [
                 'name' => 'Nurse User',
                 'username' => 'nurse',
@@ -37,7 +34,6 @@ class AdminUserSeeder extends Seeder
                 'role' => 'nurse',
                 'department_id' => 1,
             ],
-
             [
                 'name' => 'Pharmacist User',
                 'username' => 'pharmacist',
@@ -46,7 +42,6 @@ class AdminUserSeeder extends Seeder
                 'role' => 'pharmacist',
                 'department_id' => 9,
             ],
-
             [
                 'name' => 'Cashier User',
                 'username' => 'cashier',
@@ -58,13 +53,6 @@ class AdminUserSeeder extends Seeder
         ];
 
         foreach ($usersData as $data) {
-
-            /*
-            |--------------------------------------------------------------------------
-            | Create / Update User
-            |--------------------------------------------------------------------------
-            */
-
             $user = User::updateOrCreate(
                 [
                     'email' => $data['email'],
@@ -73,72 +61,12 @@ class AdminUserSeeder extends Seeder
                     'name' => $data['name'],
                     'username' => $data['username'],
                     'password' => Hash::make($data['password']),
+                    'department_id' => $data['department_id'],
                 ]
             );
 
-            /*
-            |--------------------------------------------------------------------------
-            | Assign Role
-            |--------------------------------------------------------------------------
-            */
-
-            $user->syncRoles([$data['role']]);
-
-            /*
-            |--------------------------------------------------------------------------
-            | Create user
-            |--------------------------------------------------------------------------
-            |
-            | Cashier is skipped because the current users.role ENUM
-            | does not contain "cashier".
-            |
-            */
-
-            if (
-                in_array($data['role'], [
-                    'admin',
-                    'doctor',
-                    'nurse',
-                    'pharmacist',
-                ])
-            ) {
-
-                $nameParts = explode(
-                    ' ',
-                    trim($data['name']),
-                    2
-                );
-
-                user::updateOrCreate(
-                    [
-                        'user_id' => $user->id,
-                    ],
-                    [
-                        'department_id' => $data['department_id'],
-
-                        'user_code' =>
-                            'EMP-' .
-                            str_pad(
-                                $user->id,
-                                3,
-                                '0',
-                                STR_PAD_LEFT
-                            ),
-
-                        'first_name' => $nameParts[0],
-
-                        'last_name' =>
-                            $nameParts[1] ?? '',
-
-                        'role' => $data['role'],
-
-                        'specialization' => null,
-
-                        'phone' => null,
-
-                        'status' => 'active',
-                    ]
-                );
+            if (method_exists($user, 'syncRoles')) {
+                $user->syncRoles([$data['role']]);
             }
         }
     }
