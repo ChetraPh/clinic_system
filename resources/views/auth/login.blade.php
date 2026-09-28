@@ -9,9 +9,9 @@
     <title>{{ config('adminlte.title', 'Hospital Management System') }} | Login</title>
 
     {{-- Favicon --}}
-    <link rel="icon" href="{{ optional($setting)->favicon
-    ? asset('storage/' . $setting->favicon)
-    : asset('favicon.ico') }}" type="image/x-icon">
+    <link rel="icon"
+        href="{{ optional($setting)->favicon ? asset('storage/' . $setting->favicon) : asset('favicon.ico') }}"
+        type="image/x-icon">
 
     {{-- Google Fonts: Khmer + Latin support --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,6 +28,56 @@
 
     {{-- Custom hospital login theme (overrides / extends the above) --}}
     <link rel="stylesheet" href="{{ asset('css/auth/hospital-login.css') }}">
+
+    {{-- Login page background --}}
+    <style>
+        html {
+            min-height: 100%;
+            background: url('{{ asset('images/doctor.jpg') }}') center center / cover no-repeat fixed !important;
+        }
+
+        /* Blank ពណ៌ស គ្របលើរូបភាព */
+        html::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.65);
+            -webkit-backdrop-filter: blur(3px);
+            backdrop-filter: blur(3px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* បិទ background និង effect ចាស់ពី hospital-login.css */
+        body.hms-login-body {
+            background: transparent !important;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        body.hms-login-body::before,
+        body.hms-login-body::after {
+            display: none !important;
+        }
+
+        /* ឱ្យ card និង footer នៅលើ overlay */
+        .hms-card,
+        .hms-page-footer {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hms-card {
+            background: rgba(255, 255, 255, 0.97) !important;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Footer ពណ៌ងងឹត ព្រោះ background ឥឡូវភ្លឺ */
+        .hms-page-footer,
+        .hms-page-footer a {
+            color: #333 !important;
+        }
+    </style>
 </head>
 
 <body class="hms-login-body">
@@ -37,10 +87,8 @@
 
         {{-- Logo --}}
         <div class="hms-logo-wrap">
-            <img src="{{ $setting && $setting->logo
-    ? asset('storage/' . $setting->logo)
-    : asset('vendor/adminlte/dist/img/logo.jpg')
-    }}" alt="Hospital Logo">
+            <img src="{{ $setting && $setting->logo ? asset('storage/' . $setting->logo) : asset('vendor/adminlte/dist/img/logo.jpg') }}"
+                alt="Hospital Logo">
 
         </div>
 
@@ -131,13 +179,13 @@
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
 
     <script>
-        (function () {
+        (function() {
             // Show / hide password toggle
             var toggleBtn = document.getElementById('hms-toggle-password');
             var passwordInput = document.getElementById('password');
 
             if (toggleBtn && passwordInput) {
-                toggleBtn.addEventListener('click', function () {
+                toggleBtn.addEventListener('click', function() {
                     var isPassword = passwordInput.getAttribute('type') === 'password';
                     passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
 
@@ -165,7 +213,7 @@
             }
 
             if (form && submitBtn) {
-                form.addEventListener('submit', function (e) {
+                form.addEventListener('submit', function(e) {
                     if (form.checkValidity && !form.checkValidity()) {
                         return;
                     }
@@ -185,7 +233,7 @@
             // (Back/Forward). `event.persisted` is true only for the latter,
             // but resetting unconditionally here is harmless and covers
             // browsers/edge-cases that don't set it reliably.
-            window.addEventListener('pageshow', function (event) {
+            window.addEventListener('pageshow', function(event) {
                 resetLoginButtonState();
             });
         })();

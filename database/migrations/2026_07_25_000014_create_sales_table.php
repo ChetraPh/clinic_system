@@ -17,8 +17,12 @@ class CreateSalesTable extends Migration
                 ->constrained('patients', 'patient_id')
                 ->nullOnDelete();
 
-            $table->foreignId('user_id')
-                ->constrained('users', 'user_id');
+            // កែសម្រួលត្រង់នេះ៖ ប្រើ unsignedBigInteger និង references 'id' របស់តារាង users
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
 
             $table->dateTime('sale_date');
             $table->decimal('total_amount', 12, 2)->unsigned()->default(0);

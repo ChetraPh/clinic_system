@@ -6,22 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateMedicalRecordsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('medical_records', function (Blueprint $table) {
             $table->id('record_id');
 
+            // ត្រូវប្រាកដថា patients មាន patient_id ត្រឹមត្រូវ
             $table->foreignId('patient_id')
                 ->constrained('patients', 'patient_id');
 
-            $table->foreignId('user_id')
-                ->nullable()
-                ->constrained('users', 'user_id')
+            // កែសម្រួលត្រង់នេះ ដើម្បីការពារ Error Foreign Key ជាមួយ users
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')
+                ->references('id') // ប្ដូរមក 'id' វិញ ប្រសិនបើតារាង users ប្រើ id ជា PK
+                ->on('users')
                 ->nullOnDelete();
 
             $table->dateTime('visit_date');
@@ -43,11 +41,6 @@ class CreateMedicalRecordsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('medical_records');
