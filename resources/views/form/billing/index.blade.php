@@ -1847,15 +1847,20 @@
 
 @section('js')
 
+@parent
+
 <script>
     window.billingConfig = {
         indexUrl: "{{ route('billing.index') }}",
         storeUrl: "{{ route('billing.store') }}",
         baseUrl: "{{ url('billing') }}",
         showUrl: "{{ url('billing') }}",
-        generateKhqrUrl: "{{ Route::has('qr.generateInvoice') ? route('qr.generateInvoice') : url('billing/khqr/generate') }}",
-        checkKhqrStatusUrlBase: "{{ url('qr/status') }}",
+
+        generateKhqrUrl: "{{ route('payment.generateKhqr') }}",
+        checkKhqrStatusUrlBase: "{{ url('billing/payment/check-status') }}",
+
         csrfToken: "{{ csrf_token() }}",
+
         currency: "{{ $billing->currency_symbol ?? '$' }}",
         currency2: "{{ $billing->secondary_currency_symbol ?? '៛' }}",
         exchangeRate: {{ $billing->exchange_rate ?? 4100 }},

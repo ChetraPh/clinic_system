@@ -10,9 +10,7 @@
 
     {{-- Favicon --}}
     <link rel="icon"
-        href="{{ optional($setting)->favicon
-            ? asset('storage/' . $setting->favicon)
-            : asset('favicon.ico') }}"
+        href="{{ optional($setting)->favicon ? asset('storage/' . $setting->favicon) : asset('favicon.ico') }}"
         type="image/x-icon">
 
     {{-- Google Fonts --}}
@@ -117,11 +115,9 @@
             left: 0;
             right: 0;
             height: 6px;
-            background: linear-gradient(
-                135deg,
-                var(--hospital-green) 0%,
-                #008747 100%
-            );
+            background: linear-gradient(135deg,
+                    var(--hospital-green) 0%,
+                    #008747 100%);
         }
 
         /* =========================
@@ -284,7 +280,7 @@
             border: 1px solid #F5C2C7;
         }
 
-        .hms-alert > i {
+        .hms-alert>i {
             margin-top: 3px;
             color: var(--hospital-danger);
         }
@@ -344,11 +340,9 @@
             height: 50px;
             border: 0;
             border-radius: 11px;
-            background: linear-gradient(
-                135deg,
-                var(--hospital-green) 0%,
-                #008747 100%
-            );
+            background: linear-gradient(135deg,
+                    var(--hospital-green) 0%,
+                    #008747 100%);
             color: #FFFFFF;
             font-family: inherit;
             font-size: 15px;
@@ -363,11 +357,9 @@
         }
 
         .hms-submit-btn:hover {
-            background: linear-gradient(
-                135deg,
-                var(--hospital-green-dark) 0%,
-                var(--hospital-green) 100%
-            );
+            background: linear-gradient(135deg,
+                    var(--hospital-green-dark) 0%,
+                    var(--hospital-green) 100%);
             transform: translateY(-1px);
             box-shadow: 0 10px 22px rgba(0, 109, 54, 0.22);
         }
@@ -498,10 +490,7 @@
 
         {{-- Logo --}}
         <div class="hms-logo-wrap">
-            <img src="{{ $setting && $setting->logo
-                ? asset('storage/' . $setting->logo)
-                : asset('vendor/adminlte/dist/img/logo.jpg') }}"
-                alt="Hospital Logo">
+            <img src="{{ asset('images/logo.jpg') }}" alt="Prum Santepheap Logo">
         </div>
 
         <h1 class="hms-title">
@@ -532,10 +521,7 @@
             </div>
         @endif
 
-        <form method="POST"
-            action="{{ route('login') }}"
-            id="hms-login-form"
-            novalidate>
+        <form method="POST" action="{{ route('login') }}" id="hms-login-form" novalidate>
 
             @csrf
 
@@ -547,14 +533,8 @@
                 </label>
 
                 <div class="hms-input-group @error('login') is-invalid @enderror">
-                    <input type="text"
-                        id="login"
-                        name="login"
-                        value="{{ old('login') }}"
-                        placeholder="Enter your email or username"
-                        autocomplete="username"
-                        autofocus
-                        required>
+                    <input type="text" id="login" name="login" value="{{ old('login') }}"
+                        placeholder="Enter your email or username" autocomplete="username" autofocus required>
                 </div>
 
                 @error('login')
@@ -573,18 +553,11 @@
                 </label>
 
                 <div class="hms-input-group @error('password') is-invalid @enderror">
-                    <input type="password"
-                        id="password"
-                        name="password"
-                        placeholder="••••••••"
-                        autocomplete="current-password"
-                        required>
+                    <input type="password" id="password" name="password" placeholder="••••••••"
+                        autocomplete="current-password" required>
 
-                    <button type="button"
-                        class="hms-toggle-password"
-                        id="hms-toggle-password"
-                        aria-label="Show password"
-                        tabindex="-1">
+                    <button type="button" class="hms-toggle-password" id="hms-toggle-password"
+                        aria-label="Show password" tabindex="-1">
                         <i class="fas fa-eye"></i>
                     </button>
                 </div>
@@ -601,26 +574,19 @@
             <div class="hms-form-row">
 
                 <label class="hms-remember" for="remember">
-                    <input type="checkbox"
-                        name="remember"
-                        id="remember"
-                        {{ old('remember') ? 'checked' : '' }}>
+                    <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                     <span>ចងចាំ</span>
                 </label>
 
-                <a href="#"
-                    class="hms-forgot-link"
-                    style="display: none;">
+                <a href="#" class="hms-forgot-link" style="display: none;">
                     ភ្លេចលេខសម្ងាត់?
                 </a>
 
             </div>
 
             {{-- Submit --}}
-            <button type="submit"
-                class="hms-submit-btn"
-                id="hms-submit-btn">
+            <button type="submit" class="hms-submit-btn" id="hms-submit-btn">
 
                 <span class="hms-btn-label">
                     ចូលប្រើប្រាស់
@@ -652,7 +618,7 @@
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
 
     <script>
-        (function () {
+        (function() {
 
             // Show / hide password
             var toggleBtn = document.getElementById('hms-toggle-password');
@@ -660,7 +626,7 @@
 
             if (toggleBtn && passwordInput) {
 
-                toggleBtn.addEventListener('click', function () {
+                toggleBtn.addEventListener('click', function() {
 
                     var isPassword =
                         passwordInput.getAttribute('type') === 'password';
@@ -702,7 +668,7 @@
 
             if (form && submitBtn) {
 
-                form.addEventListener('submit', function (e) {
+                form.addEventListener('submit', function(e) {
 
                     if (form.checkValidity && !form.checkValidity()) {
                         return;
@@ -721,7 +687,7 @@
             }
 
             // Reset button when browser restores page
-            window.addEventListener('pageshow', function () {
+            window.addEventListener('pageshow', function() {
                 resetLoginButtonState();
             });
 

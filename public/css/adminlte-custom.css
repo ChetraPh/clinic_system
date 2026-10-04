@@ -1,0 +1,130 @@
+/* =========================================================
+   PRUM SANTE PHEAP - ADMINLTE LOGO
+   ========================================================= */
+
+.main-sidebar .brand-link {
+    display: flex !important;
+    align-items: center !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+}
+
+.main-sidebar .brand-image {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+
+/* =========================================================
+   CUSTOM HOSPITAL BRAND LOGO
+   ========================================================= */
+
+.main-sidebar .hms-brand {
+    overflow: hidden !important;
+    white-space: nowrap !important;
+}
+
+.main-sidebar .hms-brand-logo {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    flex-shrink: 0 !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.main-sidebar .hms-brand-logo img {
+    display: block !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+
+    object-fit: contain !important;
+    object-position: center !important;
+}
+
+
+/* =========================================================
+   COLLAPSED SIDEBAR
+   ========================================================= */
+
+body.sidebar-mini.sidebar-collapse .main-sidebar {
+    width: 4.6rem !important;
+}
+
+body.sidebar-mini.sidebar-collapse .main-sidebar .hms-brand {
+    width: 4.6rem !important;
+
+    justify-content: center !important;
+
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+body.sidebar-mini.sidebar-collapse .main-sidebar .hms-brand-logo {
+    margin: 0 !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+body.sidebar-mini.sidebar-collapse .main-sidebar .hms-brand-logo img {
+    display: block !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+body.sidebar-mini.sidebar-collapse .main-sidebar .hms-brand-text {
+    display: none !important;
+
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+
+/* =========================================================
+   KEEP SIDEBAR COLLAPSED ON HOVER
+   ========================================================= */
+
+body.sidebar-mini.sidebar-collapse .main-sidebar:hover {
+    width: 4.6rem !important;
+}
+
+body.sidebar-mini.sidebar-collapse .main-sidebar:hover .hms-brand {
+    width: 4.6rem !important;
+
+    justify-content: center !important;
+
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+body.sidebar-mini.sidebar-collapse .main-sidebar:hover .hms-brand-logo {
+    margin: 0 !important;
+}
+
+body.sidebar-mini.sidebar-collapse .main-sidebar:hover .hms-brand-text {
+    display: none !important;
+
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+
+/* =========================================================
+   LOGIN LOGO
+   ========================================================= */
+
+.hms-logo-wrap img {
+    display: block !important;
+
+    width: 100px;
+    height: 100px;
+
+    object-fit: contain;
+
+    margin: 0 auto;
+}

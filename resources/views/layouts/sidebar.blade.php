@@ -7,30 +7,51 @@
     {{-- =========================
          BRAND
     ========================= --}}
-    <a href="{{ route('home') }}" class="brand-link hms-brand">
 
-        <span class="hms-brand-logo">
-            <img
-                src="{{ asset('vendor/adminlte/dist/img/logo.jpg') }}"
-                alt="Hospital Logo"
-            >
-        </span>
+    <a href="{{ route('dashboard') }}"
+   class="brand-link hms-brand"
+   style="display:flex !important; align-items:center !important;">
 
-        <span class="brand-text hms-brand-text">
-            PrumSantepheap
-        </span>
+    <img
+        src="{{ asset('images/logo.jpg') }}"
+        alt="Prum Santepheap Logo"
+        style="
+            width:40px !important;
+            height:40px !important;
+            min-width:40px !important;
+            max-width:40px !important;
+            object-fit:contain !important;
+            display:block !important;
+            opacity:1 !important;
+            visibility:visible !important;
+            margin-right:10px !important;
+        "
+    >
 
-    </a>
+    <span
+        class="brand-text hms-brand-text"
+        style="
+            display:block !important;
+            opacity:1 !important;
+            visibility:visible !important;
+        "
+    >
+        PrumSantepheap
+    </span>
+
+</a>
 
 
     {{-- =========================
          SIDEBAR
     ========================= --}}
+
     <div class="sidebar">
 
         {{-- =========================
              USER PANEL
         ========================= --}}
+
         <div class="user-panel hms-user-panel">
 
             <div class="image">
@@ -48,9 +69,11 @@
                 </a>
 
                 <span class="hms-user-role">
+
                     <i class="fas fa-circle"></i>
 
                     {{ Auth::user()->roles->pluck('name')->first() ?? 'Member' }}
+
                 </span>
 
             </div>
@@ -61,6 +84,7 @@
         {{-- =========================
              NAVIGATION
         ========================= --}}
+
         <nav class="mt-2">
 
             <ul
@@ -73,11 +97,12 @@
                 {{-- =========================
                      DASHBOARD
                 ========================= --}}
+
                 <li class="nav-item">
 
                     <a
-                        href="{{ route('home') }}"
-                        class="nav-link {{ request()->is('home*') ? 'active' : '' }}"
+                        href="{{ route('dashboard') }}"
+                        class="nav-link {{ request()->is('dashboard*') ? 'active' : '' }}"
                     >
 
                         <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -95,6 +120,7 @@
                 {{-- =========================
                      DEPARTMENT
                 ========================= --}}
+
                 <li class="nav-item">
 
                     <a
@@ -117,13 +143,13 @@
                 {{-- =========================
                      CLINICAL
                 ========================= --}}
+
                 @hasanyrole('admin|doctor|nurse')
 
                     <li class="nav-header hms-nav-header">
                         <i class="fas fa-stethoscope mr-1"></i>
                         ការងារព្យាបាល
                     </li>
-
 
                     {{-- Doctor --}}
                     <li class="nav-item">
@@ -210,13 +236,13 @@
                 {{-- =========================
                      PHARMACY
                 ========================= --}}
+
                 @hasanyrole('admin|pharmacist')
 
                     <li class="nav-header hms-nav-header">
                         <i class="fas fa-pills mr-1"></i>
                         ឱសថស្ថាន
                     </li>
-
 
                     <li class="nav-item">
 
@@ -242,13 +268,13 @@
                 {{-- =========================
                      FINANCE
                 ========================= --}}
+
                 @hasanyrole('admin|cashier')
 
                     <li class="nav-header hms-nav-header">
                         <i class="fas fa-wallet mr-1"></i>
                         ហិរញ្ញវត្ថុ
                     </li>
-
 
                     <li class="nav-item">
 
@@ -274,6 +300,7 @@
                 {{-- =========================
                      ADMIN
                 ========================= --}}
+
                 @hasrole('admin')
 
                     <li class="nav-header hms-nav-header">
@@ -302,9 +329,7 @@
                     </li>
 
 
-                    {{-- =========================
-                         SETTINGS
-                    ========================= --}}
+                    {{-- Settings --}}
                     <li class="nav-item {{ request()->is('settings*') ? 'menu-open' : '' }}">
 
                         <a
@@ -317,7 +342,6 @@
                             <p>
                                 ការកំណត់ប្រព័ន្ធ
                                 <span>Settings</span>
-
                                 <i class="right fas fa-angle-left"></i>
                             </p>
 
@@ -415,6 +439,7 @@
                 {{-- =========================
                      SUPPORT
                 ========================= --}}
+
                 <li class="nav-item hms-support-item">
 
                     <a
@@ -457,47 +482,40 @@
         --sidebar-muted: #7A8580;
     }
 
-
-    /* =========================
-       SIDEBAR
-    ========================= */
-
     .hms-sidebar {
         background: #ffffff !important;
-
         border-right: 1px solid var(--sidebar-border);
-
-        box-shadow:
-            4px 0 18px rgba(31, 42, 36, .04) !important;
+        box-shadow: 4px 0 18px rgba(31, 42, 36, .04) !important;
     }
-
 
     /* =========================
        BRAND
     ========================= */
 
     .hms-brand {
-        height: 68px;
+        height: 68px !important;
+        min-height: 68px !important;
+        width: 100% !important;
 
         display: flex !important;
-
-        align-items: center;
+        align-items: center !important;
 
         padding: 10px 17px !important;
 
         border-bottom: 1px solid var(--sidebar-border);
-
-        background: #ffffff;
+        background: #ffffff !important;
 
         text-decoration: none !important;
+
+        overflow: hidden !important;
+        white-space: nowrap !important;
     }
 
-
     .hms-brand-logo {
-        width: 40px;
-        height: 40px;
-
-        min-width: 40px;
+        width: 40px !important;
+        height: 40px !important;
+        min-width: 40px !important;
+        max-width: 40px !important;
 
         border-radius: 11px;
 
@@ -505,36 +523,132 @@
 
         background: var(--sidebar-green-light);
 
-        display: flex;
-
-        align-items: center;
-
-        justify-content: center;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
 
         margin-right: 10px;
+
+        flex-shrink: 0 !important;
+
+        overflow: hidden;
     }
 
-
     .hms-brand-logo img {
-        width: 34px;
-        height: 34px;
+        display: block !important;
 
-        object-fit: cover;
+        width: 34px !important;
+        height: 34px !important;
+
+        min-width: 34px !important;
+        min-height: 34px !important;
+
+        object-fit: contain !important;
+        object-position: center !important;
 
         border-radius: 9px;
 
         opacity: 1 !important;
+        visibility: visible !important;
+
+        flex-shrink: 0 !important;
     }
 
-
     .hms-brand-text {
+        display: block !important;
+
         color: var(--sidebar-green) !important;
 
         font-size: 17px;
-
         font-weight: 800 !important;
 
         letter-spacing: -.2px;
+
+        white-space: nowrap !important;
+
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+
+    /* =========================
+       COLLAPSED SIDEBAR
+    ========================= */
+
+    body.sidebar-mini.sidebar-collapse .main-sidebar {
+        width: 4.6rem !important;
+    }
+
+    body.sidebar-mini.sidebar-collapse .hms-brand {
+        width: 4.6rem !important;
+
+        justify-content: center !important;
+
+        padding: 10px 0 !important;
+    }
+
+    body.sidebar-mini.sidebar-collapse .hms-brand-logo {
+        width: 38px !important;
+        height: 38px !important;
+
+        min-width: 38px !important;
+        max-width: 38px !important;
+
+        margin: 0 !important;
+
+        padding: 3px !important;
+    }
+
+    body.sidebar-mini.sidebar-collapse .hms-brand-logo img {
+        width: 32px !important;
+        height: 32px !important;
+
+        min-width: 32px !important;
+        min-height: 32px !important;
+    }
+
+    body.sidebar-mini.sidebar-collapse .hms-brand-text {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+    }
+
+
+    /* =========================
+       KEEP COLLAPSED ON HOVER
+    ========================= */
+
+    body.sidebar-mini.sidebar-collapse .main-sidebar:hover {
+        width: 4.6rem !important;
+    }
+
+    body.sidebar-mini.sidebar-collapse .main-sidebar:hover .hms-brand {
+        width: 4.6rem !important;
+
+        justify-content: center !important;
+
+        padding: 10px 0 !important;
+    }
+
+    body.sidebar-mini.sidebar-collapse .main-sidebar:hover .hms-brand-logo {
+        width: 38px !important;
+        height: 38px !important;
+
+        min-width: 38px !important;
+        max-width: 38px !important;
+
+        margin: 0 !important;
+    }
+
+    body.sidebar-mini.sidebar-collapse .main-sidebar:hover .hms-brand-logo img {
+        width: 32px !important;
+        height: 32px !important;
+    }
+
+    body.sidebar-mini.sidebar-collapse .main-sidebar:hover .hms-brand-text {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
     }
 
 
@@ -544,25 +658,20 @@
 
     .hms-user-panel {
         margin: 14px 12px 10px !important;
-
         padding: 12px 10px !important;
 
         border: 1px solid var(--sidebar-border);
-
         border-radius: 12px;
 
         background: #FAFCFB;
 
         display: flex;
-
         align-items: center;
     }
-
 
     .hms-user-panel .image {
         padding-left: 0 !important;
     }
-
 
     .hms-user-avatar {
         width: 40px;
@@ -571,27 +680,20 @@
         border-radius: 11px;
 
         background: var(--sidebar-green-light);
-
         color: var(--sidebar-green);
 
         display: flex;
-
         align-items: center;
-
         justify-content: center;
 
         font-size: 15px;
-
         font-weight: 800;
     }
 
-
     .hms-user-panel .info {
         padding-left: 9px !important;
-
         min-width: 0;
     }
-
 
     .hms-user-name {
         display: block;
@@ -599,30 +701,24 @@
         color: var(--sidebar-text) !important;
 
         font-size: 12px;
-
         font-weight: 700;
 
         max-width: 145px;
 
         overflow: hidden;
-
         text-overflow: ellipsis;
-
         white-space: nowrap;
 
         text-decoration: none !important;
     }
 
-
     .hms-user-role {
         display: inline-flex;
-
         align-items: center;
 
         color: var(--sidebar-green);
 
         font-size: 10px;
-
         font-weight: 600;
 
         text-transform: capitalize;
@@ -630,12 +726,9 @@
         margin-top: 3px;
     }
 
-
     .hms-user-role i {
         font-size: 5px;
-
         margin-right: 5px;
-
         color: #24A05A;
     }
 
@@ -648,17 +741,14 @@
         padding: 0 9px 15px;
     }
 
-
     .hms-nav .nav-item {
         margin-bottom: 2px;
     }
-
 
     .hms-nav .nav-link {
         min-height: 43px;
 
         display: flex;
-
         align-items: center;
 
         border-radius: 10px;
@@ -668,7 +758,6 @@
         color: #5D6862;
 
         font-size: 12px;
-
         font-weight: 600;
 
         transition:
@@ -677,30 +766,23 @@
             transform .15s ease;
     }
 
-
     .hms-nav .nav-link:hover {
         background: #F3F8F5;
-
         color: var(--sidebar-green);
-
         transform: translateX(1px);
     }
 
-
     .hms-nav .nav-link.active {
-        background:
-            linear-gradient(
-                135deg,
-                var(--sidebar-green) 0%,
-                #008747 100%
-            );
+        background: linear-gradient(
+            135deg,
+            var(--sidebar-green) 0%,
+            #008747 100%
+        );
 
         color: #ffffff !important;
 
-        box-shadow:
-            0 5px 12px rgba(0, 109, 54, .14);
+        box-shadow: 0 5px 12px rgba(0, 109, 54, .14);
     }
-
 
     .hms-nav .nav-icon {
         width: 27px;
@@ -714,20 +796,13 @@
         transition: color .15s ease;
     }
 
-
     .hms-nav .nav-link:hover .nav-icon {
         color: var(--sidebar-green);
     }
 
-
     .hms-nav .nav-link.active .nav-icon {
         color: #ffffff;
     }
-
-
-    /* =========================
-       MAIN MENU TEXT
-    ========================= */
 
     .hms-nav .nav-link p {
         display: flex;
@@ -735,7 +810,6 @@
         flex: 1;
 
         align-items: center;
-
         justify-content: space-between;
 
         margin: 0;
@@ -743,19 +817,15 @@
         line-height: 1.2;
     }
 
-
     .hms-nav .nav-link p span {
         color: #9AA39E;
 
         font-size: 9px;
-
         font-weight: 500;
 
         margin-left: auto;
-
         padding-left: 5px;
     }
-
 
     .hms-nav .nav-link.active p span {
         color: rgba(255, 255, 255, .72);
@@ -768,22 +838,18 @@
 
     .hms-nav-header {
         padding: 15px 11px 7px !important;
-
         margin: 0 !important;
 
         color: #9AA39E !important;
 
         font-size: 9px !important;
-
         letter-spacing: .7px;
 
         font-weight: 800 !important;
     }
 
-
     .hms-nav-header i {
         color: var(--sidebar-green);
-
         font-size: 9px;
     }
 
@@ -796,16 +862,13 @@
         color: var(--sidebar-green);
     }
 
-
     .hms-nav .menu-open > .nav-link .nav-icon {
         color: var(--sidebar-green);
     }
 
-
     .hms-nav .menu-open > .nav-link .right {
         transform: rotate(-90deg);
     }
-
 
     .hms-nav .right {
         color: #9AA39E;
@@ -815,11 +878,9 @@
         transition: transform .2s ease;
     }
 
-
     .hms-submenu {
         padding: 3px 0 4px 12px !important;
     }
-
 
     .hms-submenu .nav-link {
         min-height: 38px;
@@ -831,7 +892,6 @@
         font-size: 11px;
     }
 
-
     .hms-submenu .nav-icon {
         width: 20px;
 
@@ -839,7 +899,6 @@
 
         margin-right: 5px;
     }
-
 
     .hms-submenu .nav-link p span {
         font-size: 8px;
@@ -867,18 +926,14 @@
         width: 5px;
     }
 
-
     .hms-sidebar .sidebar::-webkit-scrollbar-track {
         background: transparent;
     }
 
-
     .hms-sidebar .sidebar::-webkit-scrollbar-thumb {
         background: #D8E1DC;
-
         border-radius: 10px;
     }
-
 
     .hms-sidebar .sidebar::-webkit-scrollbar-thumb:hover {
         background: #BFCBC4;
@@ -892,7 +947,8 @@
     @media (max-width: 991.98px) {
 
         .hms-brand {
-            height: 60px;
+            height: 60px !important;
+            min-height: 60px !important;
         }
 
         .hms-brand-text {

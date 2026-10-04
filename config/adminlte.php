@@ -31,18 +31,23 @@ return [
         'allowed' => false,
     ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Admin Panel Logo
-    |--------------------------------------------------------------------------
-    */
+/*
+|--------------------------------------------------------------------------
+| Admin Panel Logo
+|--------------------------------------------------------------------------
+*/
 
-    'logo' => '<b>Prum</b> Santepheap',
-    'logo_img' => 'vendor/adminlte/dist/img/logo.jpg',
-    'logo_img_class' => 'brand-image img-circle elevation-2',
-    'logo_img_xl' => null,
-    'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Prum Santepheap Logo',
+'logo' => '<b>Prum</b> Santepheap',
+
+'logo_img' => 'images/logo.jpg',
+
+'logo_img_class' => 'brand-image img-circle elevation-2',
+
+'logo_img_xl' => null,
+
+'logo_img_xl_class' => '',
+
+'logo_img_alt' => 'Prum Santepheap Logo',
 
     /*
     |--------------------------------------------------------------------------
@@ -51,15 +56,24 @@ return [
     */
 
     'auth_logo' => [
-        'enabled' => false,
-        'img' => [
-            'path' => 'vendor/adminlte/dist/img/logo.jpg',
-            'alt' => 'Prum Santepheap Logo',
-            'class' => '',
-            'width' => 50,
-            'height' => 50,
-        ],
+
+    'enabled' => false,
+
+    'img' => [
+
+        'path' => 'images/logo.jpg',
+
+        'alt' => 'Prum Santepheap Logo',
+
+        'class' => '',
+
+        'width' => 50,
+
+        'height' => 50,
+
     ],
+
+],
 
     /*
     |--------------------------------------------------------------------------
@@ -174,7 +188,7 @@ return [
 
     'use_route_url' => false,
 
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'dashboard',
 
     'logout_url' => 'logout',
 
@@ -227,7 +241,7 @@ return [
 
         [
             'text' => 'ផ្ទាំងព័ត៌មាន',
-            'url' => 'home',
+            'url' => 'dashboard',
             'icon' => 'fas fa-tachometer-alt',
         ],
 

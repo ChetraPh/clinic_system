@@ -6,7 +6,6 @@
 
 <div class="container-fluid department-page">
 
-```
 {{-- HEADER --}}
 <div class="department-header mb-4">
     <div class="department-header-content">
@@ -149,7 +148,6 @@
     </div>
 
 </div>
-```
 
 </div>
 
@@ -159,7 +157,6 @@ CREATE MODAL
 
 <div class="modal fade" id="modalCreate" tabindex="-1" aria-hidden="true">
 
-```
 <div class="modal-dialog modal-dialog-centered">
 
     <div class="modal-content department-modal">
@@ -256,7 +253,6 @@ CREATE MODAL
     </div>
 
 </div>
-```
 
 </div>
 
@@ -266,7 +262,6 @@ EDIT MODAL
 
 <div class="modal fade" id="modalEdit" tabindex="-1" aria-hidden="true">
 
-```
 <div class="modal-dialog modal-dialog-centered">
 
     <div class="modal-content department-modal">
@@ -363,7 +358,6 @@ EDIT MODAL
     </div>
 
 </div>
-```
 
 </div>
 
@@ -373,7 +367,6 @@ DELETE MODAL
 
 <div class="modal fade" id="modalDelete" tabindex="-1" aria-hidden="true">
 
-```
 <div class="modal-dialog modal-dialog-centered modal-sm">
 
     <div class="modal-content department-modal">
@@ -451,7 +444,6 @@ DELETE MODAL
     </div>
 
 </div>
-```
 
 </div>
 

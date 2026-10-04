@@ -11,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -111,26 +112,41 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified user from storage.
-     *
-     * @param Request $request
-     * @param User $user
-     * @return RedirectResponse|JsonResponse
-     */
-    public function destroy(Request $request, User $user)
-    {
-        $userName = $user->name;
-        $user->delete();
+ * Remove the specified user from storage.
+ */
+public function destroy(Request $request, User $user)
+{
+    // Prevent deleting the currently logged-in account
+    if (Auth::id() === $user->id) {
+        $message = 'អ្នកមិនអាចលុប Account ដែលកំពុង Login បានទេ។';
 
-        if ($request->wantsJson()) {
+        if ($request->wantsJson() || $request->ajax()) {
             return response()->json([
-                'success' => true,
-                'message' => "User '{$userName}' has been deleted successfully.",
-            ]);
+                'success' => false,
+                'message' => $message,
+            ], 403);
         }
 
-        return redirect()->route('user.index')->with('success', "User '{$userName}' has been deleted successfully.");
+        return redirect()
+            ->route('user.index')
+            ->with('error', $message);
     }
+
+    $userName = $user->name;
+
+    $user->delete();
+
+    if ($request->wantsJson() || $request->ajax()) {
+        return response()->json([
+            'success' => true,
+            'message' => "User '{$userName}' has been deleted successfully.",
+        ]);
+    }
+
+    return redirect()
+        ->route('user.index')
+        ->with('success', "User '{$userName}' has been deleted successfully.");
+}
 
     /**
      * Reset the target user's Two-Factor Authentication enrollment.

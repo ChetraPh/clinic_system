@@ -35,18 +35,15 @@ div,
 label,
 a {
     font-family: 'Battambang', sans-serif !important;
-
 }
 
 body,
 html {
     font-family: 'Battambang', 'Inter', sans-serif !important;
-
 }
 
 :root {
     --primary-color: #006D36;
-
 }
 
 .sidebar,
@@ -80,12 +77,15 @@ html {
 }
 
 
-/*  button at the bottom */
+/* Button at the bottom */
+
 .mt-auto {
     margin-top: auto !important;
 }
 
-/* button and modal color */
+
+/* Button and modal color */
+
 .btn-primary {
     background-color: var(--primary-color) !important;
 }
@@ -107,8 +107,14 @@ html {
 .modal-green .modal-header {
     background-color: var(--primary-color);
     color: #fff;
+
     border-bottom: none;
-    border-radius: calc(0.3rem - 1px) calc(0.3rem - 1px) 0 0;
+
+    border-radius:
+        calc(0.3rem - 1px)
+        calc(0.3rem - 1px)
+        0
+        0;
 }
 
 .modal-green .modal-title {
@@ -126,7 +132,6 @@ html {
 
 .modal-header-custom {
     background-color: var(--primary-color);
-    ;
     color: white;
 }
 
@@ -135,7 +140,9 @@ body {
     background: #f8faf9;
 }
 
-/* sidebar menu */
+
+/* Sidebar menu */
+
 .main-sidebar {
     overflow: hidden !important;
 }
@@ -153,7 +160,8 @@ body {
     height: calc(100vh - 57px) !important;
 }
 
-/* បិទ AdminLTE hover overlay */
+
+/* Disable AdminLTE hover expansion */
 
 body.sidebar-mini.sidebar-collapse .main-sidebar:hover {
     width: 4.6rem !important;
@@ -172,36 +180,53 @@ body.sidebar-mini.sidebar-collapse .nav-sidebar .nav-icon {
 }
 
 
-/* submenu */
+/* Submenu */
 
-.nav-treeview>.nav-item>.nav-link {
+.nav-treeview > .nav-item > .nav-link {
     font-size: 13px;
     padding-left: 35px;
     color: #c2c7d0;
 }
 
-/* ---- Toast ---- */
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
 .toast-container-custom {
     position: fixed;
+
     top: 20px;
     right: 20px;
+
     z-index: 2000;
+
     display: flex;
     flex-direction: column;
+
     gap: 10px;
 }
 
 .toast-custom {
     min-width: 260px;
     max-width: 340px;
+
     padding: 14px 18px;
+
     border-radius: 10px;
+
     color: #fff;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, .18);
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, .18);
+
     font-size: 14px;
+
     display: flex;
     align-items: center;
+
     gap: 10px;
+
     animation: toastIn .25s ease-out;
 }
 
@@ -218,10 +243,15 @@ body.sidebar-mini.sidebar-collapse .nav-sidebar .nav-icon {
 }
 
 
-/* button ... */
+/* =========================================================
+   ACTION BUTTON DROPDOWN
+   ========================================================= */
+
 .action-icons .dropdown .btn {
     border: none;
+
     background: transparent;
+
     padding: 5px 10px;
 }
 
@@ -236,4 +266,3 @@ body.sidebar-mini.sidebar-collapse .nav-sidebar .nav-icon {
 .action-icons .dropdown-item {
     cursor: pointer;
 }
-

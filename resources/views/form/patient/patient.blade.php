@@ -1,4 +1,3 @@
-```blade
 @extends('adminlte::page')
 
 @section('title', 'ព័ត៌មានអ្នកជំងឺ')
@@ -2151,4 +2150,3 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 @stop
-```

@@ -1,4 +1,3 @@
-```blade
 @extends('adminlte::page')
 
 @section('title', 'វេជ្ជបណ្ឌិត (Doctor Consultation & Directory)')

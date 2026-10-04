@@ -572,11 +572,11 @@
         <div class="hms-logo-wrap">
 
             <img
-                src="{{ $setting && $setting->logo
-                    ? asset('storage/' . $setting->logo)
-                    : asset('vendor/adminlte/dist/img/logo.jpg') }}"
-                alt="Hospital Logo"
-            >
+    src="{{ $setting && $setting->logo
+        ? asset('storage/' . $setting->logo)
+        : asset('vendor/adminlte/dist/img/logo.jpg') }}"
+    alt="Hospital Logo"
+>
 
         </div>
 
