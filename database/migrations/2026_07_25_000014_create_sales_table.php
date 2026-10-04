@@ -11,14 +11,13 @@ class CreateSalesTable extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id('sale_id');
 
-            // Nullable: allow walk-in / non-patient sales at the pharmacy counter
             $table->foreignId('patient_id')
                 ->nullable()
                 ->constrained('patients', 'patient_id')
                 ->nullOnDelete();
 
             $table->foreignId('user_id')
-                ->constrained('users', 'user_id');
+                ->constrained('users', 'id');
 
             $table->dateTime('sale_date');
             $table->decimal('total_amount', 12, 2)->unsigned()->default(0);

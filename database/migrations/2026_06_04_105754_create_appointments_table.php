@@ -17,10 +17,12 @@ class CreateAppointmentsTable extends Migration
             $table->id('appointment_id');
 
             $table->foreignId('patient_id')
-                ->constrained('patients', 'patient_id');
+                ->constrained('patients', 'patient_id')
+                ->onDelete('cascade');
 
             $table->foreignId('user_id')
-                ->constrained('users', 'user_id');
+                ->constrained('users', 'id')
+                ->onDelete('cascade');
 
             $table->dateTime('appointment_date');
 

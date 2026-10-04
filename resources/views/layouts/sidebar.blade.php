@@ -1,151 +1,904 @@
-<!-- Sidebar Navigation Layout -->
-<aside class="main-sidebar sidebar-light-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="{{ route('home') }}" class="brand-link">
-        <img src="{{ asset('vendor/adminlte/dist/img/logo.jpg') }}" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-bold">PrumSantepheap</span>
+{{-- =========================
+     HOSPITAL SIDEBAR
+========================= --}}
+
+<aside class="main-sidebar sidebar-light-primary elevation-4 hms-sidebar">
+
+    {{-- =========================
+         BRAND
+    ========================= --}}
+    <a href="{{ route('home') }}" class="brand-link hms-brand">
+
+        <span class="hms-brand-logo">
+            <img
+                src="{{ asset('vendor/adminlte/dist/img/logo.jpg') }}"
+                alt="Hospital Logo"
+            >
+        </span>
+
+        <span class="brand-text hms-brand-text">
+            PrumSantepheap
+        </span>
+
     </a>
 
-    <!-- Sidebar Content -->
+
+    {{-- =========================
+         SIDEBAR
+    ========================= --}}
     <div class="sidebar">
-        <!-- Sidebar User Panel -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center">
+
+        {{-- =========================
+             USER PANEL
+        ========================= --}}
+        <div class="user-panel hms-user-panel">
+
             <div class="image">
-                <i class="fas fa-user-circle fa-2x text-secondary mr-2"></i>
+
+                <div class="hms-user-avatar">
+                    {{ strtoupper(substr(Auth::user()->name ?? 'U', 0, 1)) }}
+                </div>
+
             </div>
+
             <div class="info">
-                <a href="#" class="d-block font-weight-bold text-dark">{{ Auth::user()->name ?? 'User' }}</a>
-                <span class="badge badge-success small">
+
+                <a href="#" class="hms-user-name">
+                    {{ Auth::user()->name ?? 'User' }}
+                </a>
+
+                <span class="hms-user-role">
+                    <i class="fas fa-circle"></i>
+
                     {{ Auth::user()->roles->pluck('name')->first() ?? 'Member' }}
                 </span>
+
             </div>
+
         </div>
 
-        <!-- Sidebar Menu -->
+
+        {{-- =========================
+             NAVIGATION
+        ========================= --}}
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                
-                <!-- 1. Dashboard (All Authenticated Users) -->
+
+            <ul
+                class="nav nav-pills nav-sidebar flex-column hms-nav"
+                data-widget="treeview"
+                role="menu"
+                data-accordion="false"
+            >
+
+                {{-- =========================
+                     DASHBOARD
+                ========================= --}}
                 <li class="nav-item">
-                    <a href="{{ route('home') }}" class="nav-link {{ request()->is('home*') ? 'active' : '' }}">
+
+                    <a
+                        href="{{ route('home') }}"
+                        class="nav-link {{ request()->is('home*') ? 'active' : '' }}"
+                    >
+
                         <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>ផ្ទាំងព័ត៌មាន (Dashboard)</p>
-                    </a>
-                </li>
 
-                <!-- 2. Department (All Authenticated Users) -->
-                <li class="nav-item">
-                    <a href="{{ route('department.index') }}" class="nav-link {{ request()->is('department*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-sitemap"></i>
-                        <p>ដេប៉ាតឺម៉ង់ (Department)</p>
-                    </a>
-                </li>
-
-                <!-- 3. Clinical Section: Doctor, Nurse & Admin -->
-                @hasanyrole('admin|doctor|nurse')
-                <li class="nav-header text-uppercase font-weight-bold text-muted mt-2">ការងារព្យាបាល (Clinical)</li>
-                <li class="nav-item">
-                    <a href="{{ url('doctor') }}" class="nav-link {{ request()->is('doctor*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-user-md"></i>
-                        <p>វេជ្ជបណ្ឌិត (Doctors)</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ url('patients') }}" class="nav-link {{ request()->is('patients*') || request()->is('patient*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-user-injured"></i>
-                        <p>អ្នកជំងឺ (Patients)</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ url('appointments') }}" class="nav-link {{ request()->is('appointments*') || request()->is('appointment*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-calendar-check"></i>
-                        <p>ការណាត់ជួប (Appointments)</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ url('lab') }}" class="nav-link {{ request()->is('lab*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-flask"></i>
-                        <p>មន្ទីរពិសោធន៍ (Laboratory)</p>
-                    </a>
-                </li>
-                @endhasanyrole
-
-                <!-- 4. Pharmacy Section: Pharmacist & Admin -->
-                @hasanyrole('admin|pharmacist')
-                <li class="nav-header text-uppercase font-weight-bold text-muted mt-2">ឱសថស្ថាន (Pharmacy)</li>
-                <li class="nav-item">
-                    <a href="{{ route('pharmacy.index') }}" class="nav-link {{ request()->is('pharmacy*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-pills"></i>
-                        <p>ឱសថស្ថាន (Pharmacy)</p>
-                    </a>
-                </li>
-                @endhasanyrole
-
-                <!-- 5. Finance Section: Cashier & Admin -->
-                @hasanyrole('admin|cashier')
-                <li class="nav-header text-uppercase font-weight-bold text-muted mt-2">ហិរញ្ញវត្ថុ (Finance)</li>
-                <li class="nav-item">
-                    <a href="{{ route('billing.index') }}" class="nav-link {{ request()->is('billing*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-file-invoice-dollar"></i>
-                        <p>ការទូទាត់ប្រាក់ (Billing)</p>
-                    </a>
-                </li>
-                @endhasanyrole
-
-                <!-- 6. Admin Only Section: User Management & System Settings -->
-                @hasrole('admin')
-                <li class="nav-header text-uppercase font-weight-bold text-muted mt-2">ការគ្រប់គ្រងប្រព័ន្ធ (Admin)</li>
-                <li class="nav-item">
-                    <a href="{{ route('user.index') }}" class="nav-link {{ request()->is('user*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>គ្រប់គ្រងអ្នកប្រើប្រាស់ (Users)</p>
-                    </a>
-                </li>
-                <li class="nav-item {{ request()->is('settings*') ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ request()->is('settings*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-cogs"></i>
                         <p>
-                            ការកំណត់ប្រព័ន្ធ (Settings)
-                            <i class="right fas fa-angle-left"></i>
+                            ផ្ទាំងព័ត៌មាន
+                            <span>Dashboard</span>
                         </p>
+
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('settingsgeneral.index') }}" class="nav-link {{ request()->is('settings/general*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>ការកំណត់ទូទៅ (General)</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('settingsbillings.index') }}" class="nav-link {{ request()->is('settings/billing*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>ការកំណត់វិក្កយបត្រ (Billing)</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('settingsqrcode.index') }}" class="nav-link {{ request()->is('settings/qrcode*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>ការកំណត់ QR Code</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('settingsbackup.index') }}" class="nav-link {{ request()->is('settings/backup*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>ការបម្រុងទុកទិន្នន័យ (Backup)</p>
-                            </a>
-                        </li>
-                    </ul>
+
                 </li>
+
+
+                {{-- =========================
+                     DEPARTMENT
+                ========================= --}}
+                <li class="nav-item">
+
+                    <a
+                        href="{{ route('department.index') }}"
+                        class="nav-link {{ request()->is('department*') ? 'active' : '' }}"
+                    >
+
+                        <i class="nav-icon fas fa-sitemap"></i>
+
+                        <p>
+                            ដេប៉ាតឺម៉ង់
+                            <span>Department</span>
+                        </p>
+
+                    </a>
+
+                </li>
+
+
+                {{-- =========================
+                     CLINICAL
+                ========================= --}}
+                @hasanyrole('admin|doctor|nurse')
+
+                    <li class="nav-header hms-nav-header">
+                        <i class="fas fa-stethoscope mr-1"></i>
+                        ការងារព្យាបាល
+                    </li>
+
+
+                    {{-- Doctor --}}
+                    <li class="nav-item">
+
+                        <a
+                            href="{{ url('doctor') }}"
+                            class="nav-link {{ request()->is('doctor*') ? 'active' : '' }}"
+                        >
+
+                            <i class="nav-icon fas fa-user-md"></i>
+
+                            <p>
+                                វេជ្ជបណ្ឌិត
+                                <span>Doctors</span>
+                            </p>
+
+                        </a>
+
+                    </li>
+
+
+                    {{-- Patients --}}
+                    <li class="nav-item">
+
+                        <a
+                            href="{{ url('patients') }}"
+                            class="nav-link {{ request()->is('patients*') || request()->is('patient*') ? 'active' : '' }}"
+                        >
+
+                            <i class="nav-icon fas fa-user-injured"></i>
+
+                            <p>
+                                អ្នកជំងឺ
+                                <span>Patients</span>
+                            </p>
+
+                        </a>
+
+                    </li>
+
+
+                    {{-- Appointments --}}
+                    <li class="nav-item">
+
+                        <a
+                            href="{{ url('appointments') }}"
+                            class="nav-link {{ request()->is('appointments*') || request()->is('appointment*') ? 'active' : '' }}"
+                        >
+
+                            <i class="nav-icon fas fa-calendar-check"></i>
+
+                            <p>
+                                ការណាត់ជួប
+                                <span>Appointments</span>
+                            </p>
+
+                        </a>
+
+                    </li>
+
+
+                    {{-- Laboratory --}}
+                    <li class="nav-item">
+
+                        <a
+                            href="{{ url('lab') }}"
+                            class="nav-link {{ request()->is('lab*') ? 'active' : '' }}"
+                        >
+
+                            <i class="nav-icon fas fa-flask"></i>
+
+                            <p>
+                                មន្ទីរពិសោធន៍
+                                <span>Laboratory</span>
+                            </p>
+
+                        </a>
+
+                    </li>
+
+                @endhasanyrole
+
+
+                {{-- =========================
+                     PHARMACY
+                ========================= --}}
+                @hasanyrole('admin|pharmacist')
+
+                    <li class="nav-header hms-nav-header">
+                        <i class="fas fa-pills mr-1"></i>
+                        ឱសថស្ថាន
+                    </li>
+
+
+                    <li class="nav-item">
+
+                        <a
+                            href="{{ route('pharmacy.index') }}"
+                            class="nav-link {{ request()->is('pharmacy*') ? 'active' : '' }}"
+                        >
+
+                            <i class="nav-icon fas fa-pills"></i>
+
+                            <p>
+                                ឱសថស្ថាន
+                                <span>Pharmacy</span>
+                            </p>
+
+                        </a>
+
+                    </li>
+
+                @endhasanyrole
+
+
+                {{-- =========================
+                     FINANCE
+                ========================= --}}
+                @hasanyrole('admin|cashier')
+
+                    <li class="nav-header hms-nav-header">
+                        <i class="fas fa-wallet mr-1"></i>
+                        ហិរញ្ញវត្ថុ
+                    </li>
+
+
+                    <li class="nav-item">
+
+                        <a
+                            href="{{ route('billing.index') }}"
+                            class="nav-link {{ request()->is('billing*') ? 'active' : '' }}"
+                        >
+
+                            <i class="nav-icon fas fa-file-invoice-dollar"></i>
+
+                            <p>
+                                ការទូទាត់ប្រាក់
+                                <span>Billing</span>
+                            </p>
+
+                        </a>
+
+                    </li>
+
+                @endhasanyrole
+
+
+                {{-- =========================
+                     ADMIN
+                ========================= --}}
+                @hasrole('admin')
+
+                    <li class="nav-header hms-nav-header">
+                        <i class="fas fa-user-shield mr-1"></i>
+                        ការគ្រប់គ្រងប្រព័ន្ធ
+                    </li>
+
+
+                    {{-- User Management --}}
+                    <li class="nav-item">
+
+                        <a
+                            href="{{ route('user.index') }}"
+                            class="nav-link {{ request()->is('user*') ? 'active' : '' }}"
+                        >
+
+                            <i class="nav-icon fas fa-users"></i>
+
+                            <p>
+                                គ្រប់គ្រងអ្នកប្រើប្រាស់
+                                <span>Users</span>
+                            </p>
+
+                        </a>
+
+                    </li>
+
+
+                    {{-- =========================
+                         SETTINGS
+                    ========================= --}}
+                    <li class="nav-item {{ request()->is('settings*') ? 'menu-open' : '' }}">
+
+                        <a
+                            href="#"
+                            class="nav-link {{ request()->is('settings*') ? 'active' : '' }}"
+                        >
+
+                            <i class="nav-icon fas fa-cogs"></i>
+
+                            <p>
+                                ការកំណត់ប្រព័ន្ធ
+                                <span>Settings</span>
+
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+
+                        </a>
+
+
+                        <ul class="nav nav-treeview hms-submenu">
+
+                            {{-- General --}}
+                            <li class="nav-item">
+
+                                <a
+                                    href="{{ route('settingsgeneral.index') }}"
+                                    class="nav-link {{ request()->is('settings/general*') ? 'active' : '' }}"
+                                >
+
+                                    <i class="far fa-circle nav-icon"></i>
+
+                                    <p>
+                                        ការកំណត់ទូទៅ
+                                        <span>General</span>
+                                    </p>
+
+                                </a>
+
+                            </li>
+
+
+                            {{-- Billing --}}
+                            <li class="nav-item">
+
+                                <a
+                                    href="{{ route('settingsbillings.index') }}"
+                                    class="nav-link {{ request()->is('settings/billing*') ? 'active' : '' }}"
+                                >
+
+                                    <i class="far fa-circle nav-icon"></i>
+
+                                    <p>
+                                        ការកំណត់វិក្កយបត្រ
+                                        <span>Billing</span>
+                                    </p>
+
+                                </a>
+
+                            </li>
+
+
+                            {{-- QR Code --}}
+                            <li class="nav-item">
+
+                                <a
+                                    href="{{ route('settingsqrcode.index') }}"
+                                    class="nav-link {{ request()->is('settings/qrcode*') ? 'active' : '' }}"
+                                >
+
+                                    <i class="far fa-circle nav-icon"></i>
+
+                                    <p>
+                                        ការកំណត់ QR Code
+                                        <span>QR Code</span>
+                                    </p>
+
+                                </a>
+
+                            </li>
+
+
+                            {{-- Backup --}}
+                            <li class="nav-item">
+
+                                <a
+                                    href="{{ route('settingsbackup.index') }}"
+                                    class="nav-link {{ request()->is('settings/backup*') ? 'active' : '' }}"
+                                >
+
+                                    <i class="far fa-circle nav-icon"></i>
+
+                                    <p>
+                                        ការបម្រុងទុកទិន្នន័យ
+                                        <span>Backup</span>
+                                    </p>
+
+                                </a>
+
+                            </li>
+
+                        </ul>
+
+                    </li>
+
                 @endhasrole
 
-                <!-- 7. Support -->
-                <li class="nav-item mt-3">
-                    <a href="{{ route('support.index') }}" class="nav-link {{ request()->is('support*') ? 'active' : '' }}">
+
+                {{-- =========================
+                     SUPPORT
+                ========================= --}}
+                <li class="nav-item hms-support-item">
+
+                    <a
+                        href="{{ route('support.index') }}"
+                        class="nav-link {{ request()->is('support*') ? 'active' : '' }}"
+                    >
+
                         <i class="nav-icon fas fa-life-ring"></i>
-                        <p>ជំនួយ (Support)</p>
+
+                        <p>
+                            ជំនួយ
+                            <span>Support</span>
+                        </p>
+
                     </a>
+
                 </li>
+
             </ul>
+
         </nav>
+
     </div>
+
 </aside>
+
+
+{{-- =========================
+     SIDEBAR STYLE
+========================= --}}
+
+<style>
+
+    :root {
+        --sidebar-green: #006D36;
+        --sidebar-green-dark: #00552B;
+        --sidebar-green-light: #E8F5EE;
+        --sidebar-border: #E5EAE7;
+        --sidebar-text: #2F3934;
+        --sidebar-muted: #7A8580;
+    }
+
+
+    /* =========================
+       SIDEBAR
+    ========================= */
+
+    .hms-sidebar {
+        background: #ffffff !important;
+
+        border-right: 1px solid var(--sidebar-border);
+
+        box-shadow:
+            4px 0 18px rgba(31, 42, 36, .04) !important;
+    }
+
+
+    /* =========================
+       BRAND
+    ========================= */
+
+    .hms-brand {
+        height: 68px;
+
+        display: flex !important;
+
+        align-items: center;
+
+        padding: 10px 17px !important;
+
+        border-bottom: 1px solid var(--sidebar-border);
+
+        background: #ffffff;
+
+        text-decoration: none !important;
+    }
+
+
+    .hms-brand-logo {
+        width: 40px;
+        height: 40px;
+
+        min-width: 40px;
+
+        border-radius: 11px;
+
+        padding: 3px;
+
+        background: var(--sidebar-green-light);
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        margin-right: 10px;
+    }
+
+
+    .hms-brand-logo img {
+        width: 34px;
+        height: 34px;
+
+        object-fit: cover;
+
+        border-radius: 9px;
+
+        opacity: 1 !important;
+    }
+
+
+    .hms-brand-text {
+        color: var(--sidebar-green) !important;
+
+        font-size: 17px;
+
+        font-weight: 800 !important;
+
+        letter-spacing: -.2px;
+    }
+
+
+    /* =========================
+       USER PANEL
+    ========================= */
+
+    .hms-user-panel {
+        margin: 14px 12px 10px !important;
+
+        padding: 12px 10px !important;
+
+        border: 1px solid var(--sidebar-border);
+
+        border-radius: 12px;
+
+        background: #FAFCFB;
+
+        display: flex;
+
+        align-items: center;
+    }
+
+
+    .hms-user-panel .image {
+        padding-left: 0 !important;
+    }
+
+
+    .hms-user-avatar {
+        width: 40px;
+        height: 40px;
+
+        border-radius: 11px;
+
+        background: var(--sidebar-green-light);
+
+        color: var(--sidebar-green);
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 15px;
+
+        font-weight: 800;
+    }
+
+
+    .hms-user-panel .info {
+        padding-left: 9px !important;
+
+        min-width: 0;
+    }
+
+
+    .hms-user-name {
+        display: block;
+
+        color: var(--sidebar-text) !important;
+
+        font-size: 12px;
+
+        font-weight: 700;
+
+        max-width: 145px;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+
+        white-space: nowrap;
+
+        text-decoration: none !important;
+    }
+
+
+    .hms-user-role {
+        display: inline-flex;
+
+        align-items: center;
+
+        color: var(--sidebar-green);
+
+        font-size: 10px;
+
+        font-weight: 600;
+
+        text-transform: capitalize;
+
+        margin-top: 3px;
+    }
+
+
+    .hms-user-role i {
+        font-size: 5px;
+
+        margin-right: 5px;
+
+        color: #24A05A;
+    }
+
+
+    /* =========================
+       NAVIGATION
+    ========================= */
+
+    .hms-nav {
+        padding: 0 9px 15px;
+    }
+
+
+    .hms-nav .nav-item {
+        margin-bottom: 2px;
+    }
+
+
+    .hms-nav .nav-link {
+        min-height: 43px;
+
+        display: flex;
+
+        align-items: center;
+
+        border-radius: 10px;
+
+        padding: 7px 11px;
+
+        color: #5D6862;
+
+        font-size: 12px;
+
+        font-weight: 600;
+
+        transition:
+            background-color .15s ease,
+            color .15s ease,
+            transform .15s ease;
+    }
+
+
+    .hms-nav .nav-link:hover {
+        background: #F3F8F5;
+
+        color: var(--sidebar-green);
+
+        transform: translateX(1px);
+    }
+
+
+    .hms-nav .nav-link.active {
+        background:
+            linear-gradient(
+                135deg,
+                var(--sidebar-green) 0%,
+                #008747 100%
+            );
+
+        color: #ffffff !important;
+
+        box-shadow:
+            0 5px 12px rgba(0, 109, 54, .14);
+    }
+
+
+    .hms-nav .nav-icon {
+        width: 27px;
+
+        margin-right: 5px;
+
+        font-size: 14px;
+
+        color: #7B8781;
+
+        transition: color .15s ease;
+    }
+
+
+    .hms-nav .nav-link:hover .nav-icon {
+        color: var(--sidebar-green);
+    }
+
+
+    .hms-nav .nav-link.active .nav-icon {
+        color: #ffffff;
+    }
+
+
+    /* =========================
+       MAIN MENU TEXT
+    ========================= */
+
+    .hms-nav .nav-link p {
+        display: flex;
+
+        flex: 1;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        margin: 0;
+
+        line-height: 1.2;
+    }
+
+
+    .hms-nav .nav-link p span {
+        color: #9AA39E;
+
+        font-size: 9px;
+
+        font-weight: 500;
+
+        margin-left: auto;
+
+        padding-left: 5px;
+    }
+
+
+    .hms-nav .nav-link.active p span {
+        color: rgba(255, 255, 255, .72);
+    }
+
+
+    /* =========================
+       SECTION HEADER
+    ========================= */
+
+    .hms-nav-header {
+        padding: 15px 11px 7px !important;
+
+        margin: 0 !important;
+
+        color: #9AA39E !important;
+
+        font-size: 9px !important;
+
+        letter-spacing: .7px;
+
+        font-weight: 800 !important;
+    }
+
+
+    .hms-nav-header i {
+        color: var(--sidebar-green);
+
+        font-size: 9px;
+    }
+
+
+    /* =========================
+       SETTINGS
+    ========================= */
+
+    .hms-nav .menu-open > .nav-link {
+        color: var(--sidebar-green);
+    }
+
+
+    .hms-nav .menu-open > .nav-link .nav-icon {
+        color: var(--sidebar-green);
+    }
+
+
+    .hms-nav .menu-open > .nav-link .right {
+        transform: rotate(-90deg);
+    }
+
+
+    .hms-nav .right {
+        color: #9AA39E;
+
+        font-size: 10px;
+
+        transition: transform .2s ease;
+    }
+
+
+    .hms-submenu {
+        padding: 3px 0 4px 12px !important;
+    }
+
+
+    .hms-submenu .nav-link {
+        min-height: 38px;
+
+        border-radius: 8px;
+
+        padding: 6px 10px;
+
+        font-size: 11px;
+    }
+
+
+    .hms-submenu .nav-icon {
+        width: 20px;
+
+        font-size: 7px;
+
+        margin-right: 5px;
+    }
+
+
+    .hms-submenu .nav-link p span {
+        font-size: 8px;
+    }
+
+
+    /* =========================
+       SUPPORT
+    ========================= */
+
+    .hms-support-item {
+        margin-top: 14px !important;
+
+        padding-top: 10px;
+
+        border-top: 1px solid var(--sidebar-border);
+    }
+
+
+    /* =========================
+       SIDEBAR SCROLLBAR
+    ========================= */
+
+    .hms-sidebar .sidebar::-webkit-scrollbar {
+        width: 5px;
+    }
+
+
+    .hms-sidebar .sidebar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+
+    .hms-sidebar .sidebar::-webkit-scrollbar-thumb {
+        background: #D8E1DC;
+
+        border-radius: 10px;
+    }
+
+
+    .hms-sidebar .sidebar::-webkit-scrollbar-thumb:hover {
+        background: #BFCBC4;
+    }
+
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 991.98px) {
+
+        .hms-brand {
+            height: 60px;
+        }
+
+        .hms-brand-text {
+            font-size: 15px;
+        }
+
+    }
+
+</style>

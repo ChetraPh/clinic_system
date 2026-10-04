@@ -6,28 +6,16 @@ return [
     |--------------------------------------------------------------------------
     | Title
     |--------------------------------------------------------------------------
-    |
-    | Here you can change the default title of your admin panel.
-    |
-    | For detailed instructions you can look the title section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
-    |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Prum Santepheap',
     'title_prefix' => '',
-    'title_postfix' => '',
+    'title_postfix' => ' | Hospital Management System',
 
     /*
     |--------------------------------------------------------------------------
     | Favicon
     |--------------------------------------------------------------------------
-    |
-    | Here you can activate the favicon.
-    |
-    | For detailed instructions you can look the favicon section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
-    |
     */
 
     'use_ico_only' => false,
@@ -37,14 +25,6 @@ return [
     |--------------------------------------------------------------------------
     | Google Fonts
     |--------------------------------------------------------------------------
-    |
-    | Here you can allow or not the use of external google fonts. Disabling the
-    | google fonts may be useful if your admin panel internet access is
-    | restricted somehow.
-    |
-    | For detailed instructions you can look the google fonts section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
-    |
     */
 
     'google_fonts' => [
@@ -55,39 +35,26 @@ return [
     |--------------------------------------------------------------------------
     | Admin Panel Logo
     |--------------------------------------------------------------------------
-    |
-    | Here you can change the logo of your admin panel.
-    |
-    | For detailed instructions you can look the logo section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
-    |
     */
 
-    'logo' => '<b>Prum</b>Santepheap',
+    'logo' => '<b>Prum</b> Santepheap',
     'logo_img' => 'vendor/adminlte/dist/img/logo.jpg',
-    'logo_img_class' => 'brand-image img-circle elevation-3',
+    'logo_img_class' => 'brand-image img-circle elevation-2',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Admin Logo',
+    'logo_img_alt' => 'Prum Santepheap Logo',
 
     /*
     |--------------------------------------------------------------------------
     | Authentication Logo
     |--------------------------------------------------------------------------
-    |
-    | Here you can setup an alternative logo to use on your login and register
-    | screens. When disabled, the admin panel logo will be used instead.
-    |
-    | For detailed instructions you can look the auth logo section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
-    |
     */
 
     'auth_logo' => [
         'enabled' => false,
         'img' => [
             'path' => 'vendor/adminlte/dist/img/logo.jpg',
-            'alt' => 'Auth Logo',
+            'alt' => 'Prum Santepheap Logo',
             'class' => '',
             'width' => 50,
             'height' => 50,
@@ -98,15 +65,6 @@ return [
     |--------------------------------------------------------------------------
     | Preloader Animation
     |--------------------------------------------------------------------------
-    |
-    | Here you can change the preloader animation configuration. Currently, two
-    | modes are supported: 'fullscreen' for a fullscreen preloader animation
-    | and 'cwrapper' to attach the preloader animation into the content-wrapper
-    | element and avoid overlapping it with the sidebars and the top navbar.
-    |
-    | For detailed instructions you can look the preloader section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
-    |
     */
 
     'preloader' => [
@@ -114,7 +72,7 @@ return [
         'mode' => 'fullscreen',
         'img' => [
             'path' => 'vendor/adminlte/dist/img/logo.jpg',
-            'alt' => 'AdminLTE Preloader Image',
+            'alt' => 'Prum Santepheap',
             'effect' => 'animation__shake',
             'width' => 60,
             'height' => 60,
@@ -125,17 +83,11 @@ return [
     |--------------------------------------------------------------------------
     | User Menu
     |--------------------------------------------------------------------------
-    |
-    | Here you can activate and change the user menu.
-    |
-    | For detailed instructions you can look the user menu section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
-    |
     */
 
     'usermenu_enabled' => true,
     'usermenu_header' => false,
-    'usermenu_header_class' => 'bg-primary',
+    'usermenu_header_class' => 'bg-success',
     'usermenu_image' => true,
     'usermenu_desc' => false,
     'usermenu_profile_url' => true,
@@ -144,12 +96,6 @@ return [
     |--------------------------------------------------------------------------
     | Layout
     |--------------------------------------------------------------------------
-    |
-    | Here we change the layout of your admin panel.
-    |
-    | For detailed instructions you can look the layout section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Layout-and-Styling-Configuration
-    |
     */
 
     'layout_topnav' => false,
@@ -163,31 +109,19 @@ return [
     |--------------------------------------------------------------------------
     | Authentication Views Classes
     |--------------------------------------------------------------------------
-    |
-    | Here you can change the look and behavior of the authentication views.
-    |
-    | For detailed instructions you can look the auth classes section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Layout-and-Styling-Configuration
-    |
     */
 
-    'classes_auth_card' => 'card-outline card-primary',
+    'classes_auth_card' => 'card-outline card-success',
     'classes_auth_header' => '',
     'classes_auth_body' => '',
     'classes_auth_footer' => '',
-    'classes_auth_icon' => '',
-    'classes_auth_btn' => 'btn-flat btn-primary',
+    'classes_auth_icon' => 'text-success',
+    'classes_auth_btn' => 'btn-flat btn-success',
 
     /*
     |--------------------------------------------------------------------------
     | Admin Panel Classes
     |--------------------------------------------------------------------------
-    |
-    | Here you can change the look and behavior of the admin panel.
-    |
-    | For detailed instructions you can look the admin panel classes here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Layout-and-Styling-Configuration
-    |
     */
 
     'classes_body' => 'font-khmer',
@@ -206,12 +140,6 @@ return [
     |--------------------------------------------------------------------------
     | Sidebar
     |--------------------------------------------------------------------------
-    |
-    | Here we can modify the sidebar of the admin panel.
-    |
-    | For detailed instructions you can look the sidebar section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Layout-and-Styling-Configuration
-    |
     */
 
     'sidebar_mini' => 'lg',
@@ -226,14 +154,8 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Control Sidebar (Right Sidebar)
+    | Control Sidebar
     |--------------------------------------------------------------------------
-    |
-    | Here we can modify the right sidebar aka control sidebar of the admin panel.
-    |
-    | For detailed instructions you can look the right sidebar section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Layout-and-Styling-Configuration
-    |
     */
 
     'right_sidebar' => false,
@@ -248,38 +170,30 @@ return [
     |--------------------------------------------------------------------------
     | URLs
     |--------------------------------------------------------------------------
-    |
-    | Here we can modify the url settings of the admin panel.
-    |
-    | For detailed instructions you can look the urls section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
-    |
     */
 
     'use_route_url' => false,
+
     'dashboard_url' => 'home',
+
     'logout_url' => 'logout',
+
     'login_url' => 'login',
+
     'register_url' => false,
+
     'password_reset_url' => false,
+
     'password_email_url' => 'password/email',
+
     'profile_url' => false,
+
     'disable_darkmode_routes' => false,
 
     /*
     |--------------------------------------------------------------------------
     | Laravel Asset Bundling
     |--------------------------------------------------------------------------
-    |
-    | Here we can enable the Laravel Asset Bundling option for the admin panel.
-    | Currently, the next modes are supported: 'mix', 'vite' and 'vite_js_only'.
-    | When using 'vite_js_only', it's expected that your CSS is imported using
-    | JavaScript. Typically, in your application's 'resources/js/app.js' file.
-    | If you are not using any of these, leave it as 'false'.
-    |
-    | For detailed instructions you can look the asset bundling section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Other-Configuration
-    |
     */
 
     'laravel_asset_bundling' => false,
@@ -290,26 +204,43 @@ return [
     |--------------------------------------------------------------------------
     | Menu Items
     |--------------------------------------------------------------------------
-    |
-    | Here we can modify the sidebar/top navigation of the admin panel.
-    |
-    | For detailed instructions you can look here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Menu-Configuration
-    |
     */
 
     'menu' => [
+
+        /*
+        |--------------------------------------------------------------------------
+        | Top Navigation
+        |--------------------------------------------------------------------------
+        */
 
         [
             'type' => 'fullscreen-widget',
             'topnav_right' => true,
         ],
 
+        /*
+        |--------------------------------------------------------------------------
+        | Dashboard
+        |--------------------------------------------------------------------------
+        */
+
         [
-            'text' => 'ផ្ទាំងព័ត៏មាន',
-            'url' => 'dashboard',
+            'text' => 'ផ្ទាំងព័ត៌មាន',
+            'url' => 'home',
             'icon' => 'fas fa-tachometer-alt',
         ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | General Management
+        |--------------------------------------------------------------------------
+        */
+
+        [
+            'header' => 'ការគ្រប់គ្រងទូទៅ',
+        ],
+
         [
             'text' => 'ដេប៉ាតឺម៉ង់',
             'url' => 'department',
@@ -318,68 +249,124 @@ return [
         ],
 
         [
+            'text' => 'អ្នកជំងឺ',
+            'url' => 'patients',
+            'icon' => 'fas fa-user-injured',
+            'can' => 'view-patients',
+        ],
+
+        [
             'text' => 'វេជ្ជបណ្ឌិត',
             'url' => 'doctor',
             'icon' => 'fas fa-user-md',
             'can' => 'view-doctors',
         ],
-        [
-            'text' => 'គ្រប់គ្រងអ្នកជម្ងឺ',
-            'url' => 'patients',
-            'icon' => 'fas fa-user-injured',
-            'can' => 'view-patients',
-        ],
-        [
-            'text' => 'ឱសថស្ថាន',
-            'url' => 'pharmacy',
-            'icon' => 'fas fa-pills',
-            'can' => 'view-medicines',
-        ],
-        [
-            'text' => 'ការទូទាត់ប្រាក់',
-            'url' => 'billing',
-            'icon' => 'fas fa-file-invoice-dollar',
-            'can' => 'view-invoices',
-        ],
-        [
-            'text' => 'កំណត់ត្រាវេជ្ជសាស្ត្រ',
-            'route' => 'medical-records.index',
-            'icon' => 'fas fa-notes-medical',
-            'can' => 'view-medical-records',
 
-        ],
         [
             'text' => 'បន្ទប់',
             'url' => 'room',
             'icon' => 'fas fa-procedures',
             'can' => 'manage-rooms',
         ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Clinical Management
+        |--------------------------------------------------------------------------
+        */
+
+        [
+            'header' => 'ការគ្រប់គ្រងវេជ្ជសាស្ត្រ',
+        ],
+
         [
             'text' => 'ការណាត់ជួប',
             'url' => 'appointment',
             'icon' => 'fas fa-calendar-check',
             'can' => 'view-appointments',
         ],
+
+        [
+            'text' => 'កំណត់ត្រាវេជ្ជសាស្ត្រ',
+            'route' => 'medical-records.index',
+            'icon' => 'fas fa-notes-medical',
+            'can' => 'view-medical-records',
+        ],
+
         [
             'text' => 'មន្ទីរពិសោធន៍',
             'url' => 'lab',
             'icon' => 'fas fa-vials',
             'can' => 'view-lab-results',
         ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Pharmacy
+        |--------------------------------------------------------------------------
+        */
+
+        [
+            'header' => 'ឱសថស្ថាន',
+        ],
+
+        [
+            'text' => 'ឱសថស្ថាន',
+            'url' => 'pharmacy',
+            'icon' => 'fas fa-pills',
+            'can' => 'view-medicines',
+        ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Finance
+        |--------------------------------------------------------------------------
+        */
+
+        [
+            'header' => 'ហិរញ្ញវត្ថុ',
+        ],
+
+        [
+            'text' => 'ការទូទាត់ប្រាក់',
+            'url' => 'billing',
+            'icon' => 'fas fa-file-invoice-dollar',
+            'can' => 'view-invoices',
+        ],
+
+        [
+            'text' => 'ការកំណត់ការទូទាត់',
+            'url' => 'settings/billing',
+            'icon' => 'fas fa-money-check-alt',
+            'can' => 'manage-billing-settings',
+        ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | System Administration
+        |--------------------------------------------------------------------------
+        */
+
+        [
+            'header' => 'ការគ្រប់គ្រងប្រព័ន្ធ',
+            'can' => 'manage-system-settings',
+        ],
+
         [
             'text' => 'ការកំណត់ប្រព័ន្ធ',
             'icon' => 'fas fa-cogs',
-            'classes' => 'mt-auto',
             'can' => 'manage-system-settings',
             'submenu' => [
+
                 [
                     'text' => 'ការកំណត់ទូទៅ',
                     'url' => 'settings/general',
                     'icon' => 'fas fa-sliders-h',
                     'can' => 'manage-system-settings',
                 ],
+
                 [
-                    'text' => 'ការគ្រប់គ្រងអ្នកប្រើប្រាស់',
+                    'text' => 'អ្នកប្រើប្រាស់',
                     'url' => 'user',
                     'icon' => 'fas fa-users',
                     'can' => 'manage-users',
@@ -391,20 +378,27 @@ return [
                     'icon' => 'fas fa-qrcode',
                     'can' => 'manage-system-settings',
                 ],
+
                 [
                     'text' => 'ការបម្រុងទុកទិន្នន័យ',
                     'url' => 'settings/backup',
                     'icon' => 'fas fa-database',
                     'can' => 'manage-backups',
                 ],
+
             ],
         ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Support
+        |--------------------------------------------------------------------------
+        */
+
         [
-            'text' => 'រូបិយប័ណ្ណ',
-            'url' => 'settings/billing',
-            'icon' => 'fas fa-file-invoice-dollar',
-            'can' => 'manage-billing-settings',
+            'header' => 'ជំនួយ',
         ],
+
         [
             'text' => 'Support',
             'url' => 'support',
@@ -417,12 +411,6 @@ return [
     |--------------------------------------------------------------------------
     | Menu Filters
     |--------------------------------------------------------------------------
-    |
-    | Here we can modify the menu filters of the admin panel.
-    |
-    | For detailed instructions you can look the menu filters section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Menu-Configuration
-    |
     */
 
     'filters' => [
@@ -439,15 +427,10 @@ return [
     |--------------------------------------------------------------------------
     | Plugins Initialization
     |--------------------------------------------------------------------------
-    |
-    | Here we can modify the plugins used inside the admin panel.
-    |
-    | For detailed instructions you can look the plugins section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Plugins-Configuration
-    |
     */
 
     'plugins' => [
+
         'Datatables' => [
             'active' => false,
             'files' => [
@@ -468,6 +451,7 @@ return [
                 ],
             ],
         ],
+
         'Select2' => [
             'active' => true,
             'files' => [
@@ -483,6 +467,7 @@ return [
                 ],
             ],
         ],
+
         'Chartjs' => [
             'active' => false,
             'files' => [
@@ -493,6 +478,7 @@ return [
                 ],
             ],
         ],
+
         'Sweetalert2' => [
             'active' => false,
             'files' => [
@@ -503,6 +489,7 @@ return [
                 ],
             ],
         ],
+
         'Pace' => [
             'active' => false,
             'files' => [
@@ -518,19 +505,13 @@ return [
                 ],
             ],
         ],
+
     ],
 
     /*
     |--------------------------------------------------------------------------
     | IFrame
     |--------------------------------------------------------------------------
-    |
-    | Here we change the IFrame mode configuration. Note these changes will
-    | only apply to the view that extends and enable the IFrame mode.
-    |
-    | For detailed instructions you can look the iframe mode section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/IFrame-Mode-Configuration
-    |
     */
 
     'iframe' => [
@@ -538,6 +519,7 @@ return [
             'url' => null,
             'title' => null,
         ],
+
         'buttons' => [
             'close' => true,
             'close_all' => true,
@@ -546,6 +528,7 @@ return [
             'scroll_right' => true,
             'fullscreen' => true,
         ],
+
         'options' => [
             'loading_screen' => 1000,
             'auto_show_new_tab' => true,
@@ -557,13 +540,8 @@ return [
     |--------------------------------------------------------------------------
     | Livewire
     |--------------------------------------------------------------------------
-    |
-    | Here we can enable the Livewire support.
-    |
-    | For detailed instructions you can look the livewire here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Other-Configuration
-    |
     */
 
     'livewire' => false,
+
 ];
